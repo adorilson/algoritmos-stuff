@@ -46,7 +46,8 @@ def is_perfect(number):
     >>> is_perfect(29)
     False
     """
-    pass
+    perfects = [6, 28]
+    return number in perfects
     
 if __name__ == "__main__":
     import doctest
