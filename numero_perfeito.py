@@ -46,9 +46,11 @@ def is_perfect(number):
     >>> is_perfect(29)
     False
     """
-    perfects = [6, 28]
-    return number in perfects
-    
+    divisors = divide(number)
+    sum_ = sum(divisors[:-1])
+    return sum_==number
+
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
