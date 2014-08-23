@@ -20,7 +20,7 @@ def divide(number):
     >>> divide(2)
     [1, 2]
     >>> divide(3)
-    [1, 2, 3]
+    [1, 3]
     >>> divide(4)
     [1, 2, 4]
     >>> divide(6)
@@ -28,24 +28,11 @@ def divide(number):
     >>> divide(28)
     [1, 2, 4, 7, 14, 28]
     """
-    
-    if (number==1):
-        return [1]
-    
-    if (number==2):
-        return [1, 2]
-
-    if (number==3):
-        return [1, 2, 3]      
-    
-    if (number==4):
-        return [1, 2, 4]
-    
-    if (number==6):
-        return [1, 2, 3, 6]
-    
-    if (number==28):
-        return [1, 2, 4, 7, 14, 28]
+    divide = []
+    for i in range(1, number+1):
+        if not (number % i):
+            divide.append(i)
+    return divide
         
 if __name__ == "__main__":
     import doctest
