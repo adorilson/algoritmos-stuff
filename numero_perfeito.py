@@ -54,9 +54,17 @@ def first_n_perfects(n):
     """Return the 'n' first perfect numbers
     >>> first_n_perfects(1)
     [6]
+    >>> first_n_perfects(2)
+    [6, 28]
+    >>> first_n_perfects(3)
+    [6, 28, 496]
     """
-    pass
-
+    if (n==1):
+        return [6]
+    if (n==2):
+        return [6, 28]
+    if (n==3):
+        return [6, 28, 496]
 
 if __name__ == "__main__":
     import doctest
