@@ -50,6 +50,13 @@ def is_perfect(number):
     sum_ = sum(divisors[:-1])
     return sum_==number
 
+def first_n_perfects(n):
+    """Return the 'n' first perfect numbers
+    >>> first_n_perfects(1)
+    [6]
+    """
+    pass
+
 
 if __name__ == "__main__":
     import doctest
