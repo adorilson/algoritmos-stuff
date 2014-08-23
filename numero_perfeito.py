@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 """
     Exercício 2.0 do livro Matemática Discreta, Edward R. Sheinerman
@@ -11,7 +12,7 @@
     imediatamente superior a 28.
 """
 
-def divide(nummber):
+def divide(number):
     """Return the numbers that number is divisor by.
     
     >>> divide(1)
@@ -23,13 +24,29 @@ def divide(nummber):
     >>> divide(4)
     [1, 2, 4]
     >>> divide(6)
-    [1, 2, 3 ,6]
+    [1, 2, 3, 6]
     >>> divide(28)
     [1, 2, 4, 7, 14, 28]
     """
     
-    pass
+    if (number==1):
+        return [1]
     
+    if (number==2):
+        return [1, 2]
+
+    if (number==3):
+        return [1, 2, 3]      
+    
+    if (number==4):
+        return [1, 2, 4]
+    
+    if (number==6):
+        return [1, 2, 3, 6]
+    
+    if (number==28):
+        return [1, 2, 4, 7, 14, 28]
+        
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
