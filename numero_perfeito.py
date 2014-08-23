@@ -58,13 +58,19 @@ def first_n_perfects(n):
     [6, 28]
     >>> first_n_perfects(3)
     [6, 28, 496]
+    >>> first_n_perfects(4)
+    [6, 28, 496, 8128]
     """
-    if (n==1):
-        return [6]
-    if (n==2):
-        return [6, 28]
-    if (n==3):
-        return [6, 28, 496]
+    perfects = []
+    i = 1
+    while True:
+        if is_perfect(i):
+            perfects.append(i)
+        i+=1
+        if len(perfects)==n:
+            break
+    
+    return perfects
 
 if __name__ == "__main__":
     import doctest
