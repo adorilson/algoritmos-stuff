@@ -33,7 +33,21 @@ def divide(number):
         if not (number % i):
             divide.append(i)
     return divide
-        
+
+def is_perfect(number):
+    """Return True if number is a perfect number
+    
+    >>> is_perfect(6)
+    True
+    >>> is_perfect(7)
+    False
+    >>> is_perfect(28)
+    True
+    >>> is_perfect(29)
+    False
+    """
+    pass
+    
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
