@@ -66,6 +66,13 @@ MergeSort::mergesort( int* a , int e, int d)
   //
   // -----------------------------------------------------------------
 
+  int* b;
+  if (e<d){
+    int m = (e+d)/2;
+    mergesort(a, e, m);
+    mergesort(a, m+1, d);
+    merge(a, b, e, m, d);
+  }
   return ;
 }
 
