@@ -23,6 +23,7 @@
  *            THE AUTHOR.
  */
 
+#include <iostream>            // cout, cerr, endl
 #include "mergesort.hpp"         // MergeSort
 
 
@@ -65,15 +66,23 @@ MergeSort::mergesort( int* a , int e, int d)
   // em sala de aula.
   //
   // -----------------------------------------------------------------
-
-  int* b;
+  using std::cerr ;
+  using std::endl ;
+  
+  int* b = new int[d];
   if (e<d){
     int m = (e+d)/2;
     mergesort(a, e, m);
     mergesort(a, m+1, d);
-    merge(a, b, e, m, d);
+    merge(a, b, e, m, d); // Será que está certo essa chamada????
   }
-  return ;
+  
+  for(int i=0; i<d; i++){
+    a[i] = b[i];
+    cerr << b[i] << " ";
+  }
+  cerr << "mergesort" << endl;
+  return;
 }
 
 
@@ -96,5 +105,29 @@ void
 MergeSort::merge( int* a , int* b , int e , int m , int d )
 {
   // ESCREVA O CÓDIGO DO PROCEDIMENTO MERGE AQUI!
+  int r = d; // somente um apelido pra d
+  int t = 0;
+  int sl = e;
+  int sr = m+1;
+  while (sl<=m && sr < d){
+    if (a[sl]<=a[sr]){
+        b[t] = a[sl];
+        sl++;
+    }else{
+        b[t] = a[sr];
+        sr++;
+    };
+    t++;
+  };
+  while (sl<=m){
+    b[t] = a[sl];
+    sl++;
+    t++;
+  }
+  while(sr<=r){
+    b[t] = a[sr];
+    sr++;
+    t++;
+  }
   return ;
 }
