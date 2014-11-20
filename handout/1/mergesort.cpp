@@ -51,8 +51,8 @@ MergeSort::sort( int* a , int size )
  * delimited by two given indices.
  *
  * \param a A pointer to an array of integers.
- * \param e The  index of the first element of  the subarray.
- * \param d The  index of the last element of the subarray.
+ * \param l The  index of the first element of  the subarray.
+ * \param r The  index of the last element of the subarray.
  */
 void
 MergeSort::mergesort( int* a , int l, int r)
