@@ -106,14 +106,13 @@ private:
    * subarray.
    *
    * \param a A pointer to an array of integers.
-   * \param b A pointer to the auxiliary array.
    * \param e The  index of the first element of  the left subarray of
    * a.
    * \param m The index of the last element of the left subarray of a.
    * \param d The  index of the last element of  the right subarray of
    * a.
    */
-  void merge( int* a , int* b , int e , int m , int d ) ;
+  void merge( int* a , int e , int m , int d ) ;
 
 } ;
 

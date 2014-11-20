@@ -69,12 +69,11 @@ MergeSort::mergesort( int* a , int l, int r)
   using std::cerr ;
   using std::endl ;
   
-  int* b = new int [r];
   if (l<r){
     int m = (l+r)/2;
     mergesort(a, l, m);
     mergesort(a, m+1, r);
-    merge(a, b, l, m, r); // Será que está certo essa chamada????
+    merge(a, l, m, r); // Será que está certo essa chamada????
   }
   
   return;
@@ -91,20 +90,20 @@ MergeSort::mergesort( int* a , int l, int r)
  * element occupies the last position of the right subarray.
  *
  * \param a A pointer to an array of integers.
- * \param b A pointer to the auxiliary array.
- * \param e The index of the first element of the left subarray of a.
+ * \param l The index of the first element of the left subarray of a.
  * \param m The index of the last element of the left subarray of a.
- * \param d The index of the last element of the right subarray of a.
+ * \param r The index of the last element of the right subarray of a.
  */
 void
-MergeSort::merge( int* a , int* b , int e , int m , int d )
+MergeSort::merge( int* a, int l, int m, int r )
 {
   // ESCREVA O CÓDIGO DO PROCEDIMENTO MERGE AQUI!
-  int r = d; // somente um apelido pra d
+  int* b = new int[r-l+1];
+
   int t = 0;
-  int sl = e;
+  int sl = l;
   int sr = m+1;
-  while (sl<=m && sr < d){
+  while (sl<=m && sr < r){
     if (a[sl]<=a[sr]){
         b[t] = a[sl];
         sl++;
@@ -124,5 +123,10 @@ MergeSort::merge( int* a , int* b , int e , int m , int d )
     sr++;
     t++;
   }
+
+  for(int i=0; i<=r-l; i++){
+    a[l+i] = b[1+i];
+  }
+
   return ;
 }
