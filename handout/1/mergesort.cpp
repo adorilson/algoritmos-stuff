@@ -55,7 +55,7 @@ MergeSort::sort( int* a , int size )
  * \param d The  index of the last element of the subarray.
  */
 void
-MergeSort::mergesort( int* a , int e, int d)
+MergeSort::mergesort( int* a , int l, int r)
 {
   // ESCREVA O CÓDIGO DO MERGE-SORT
 
@@ -69,19 +69,14 @@ MergeSort::mergesort( int* a , int e, int d)
   using std::cerr ;
   using std::endl ;
   
-  int* b = new int[d];
-  if (e<d){
-    int m = (e+d)/2;
-    mergesort(a, e, m);
-    mergesort(a, m+1, d);
-    merge(a, b, e, m, d); // Será que está certo essa chamada????
+  int* b = new int [r];
+  if (l<r){
+    int m = (l+r)/2;
+    mergesort(a, l, m);
+    mergesort(a, m+1, r);
+    merge(a, b, l, m, r); // Será que está certo essa chamada????
   }
   
-  for(int i=0; i<d; i++){
-    a[i] = b[i];
-    cerr << b[i] << " ";
-  }
-  cerr << "mergesort" << endl;
   return;
 }
 
