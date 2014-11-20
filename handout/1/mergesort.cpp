@@ -26,7 +26,6 @@
 #include <iostream>            // cout, cerr, endl
 #include "mergesort.hpp"         // MergeSort
 
-
 /**
  * \fn void MergeSort::sort( int* a , int size )
  *
@@ -66,14 +65,12 @@ MergeSort::mergesort( int* a , int l, int r)
   // em sala de aula.
   //
   // -----------------------------------------------------------------
-  using std::cerr ;
-  using std::endl ;
-  
+ 
   if (l<r){
     int m = (l+r)/2;
     mergesort(a, l, m);
     mergesort(a, m+1, r);
-    merge(a, l, m, r); // Será que está certo essa chamada????
+    merge(a, l, m, r);
   }
   
   return;
@@ -98,12 +95,14 @@ void
 MergeSort::merge( int* a, int l, int m, int r )
 {
   // ESCREVA O CÓDIGO DO PROCEDIMENTO MERGE AQUI!
-  int* b = new int[r-l+1];
+  int temp_size = r-l+1;
+  int* b = new int[temp_size];
 
   int t = 0;
   int sl = l;
   int sr = m+1;
-  while (sl<=m && sr < r){
+  // fazendo a intercalação dos elementos das duas partes de a em b
+  while (sl<=m && sr <= r){
     if (a[sl]<=a[sr]){
         b[t] = a[sl];
         sl++;
@@ -113,20 +112,23 @@ MergeSort::merge( int* a, int l, int m, int r )
     };
     t++;
   };
+  // copiando o restantes dos elementos da primeira parte de a para b
   while (sl<=m){
     b[t] = a[sl];
     sl++;
     t++;
   }
+  //copiando o restantes dos elementos da segunda parte de a para b
   while(sr<=r){
     b[t] = a[sr];
     sr++;
     t++;
   }
 
-  for(int i=0; i<=r-l; i++){
-    a[l+i] = b[1+i];
+  // copiando b para o subarray de a
+  for(int i=0; i<temp_size; i++){
+    a[l+i] = b[i];
   }
-
+  
   return ;
 }
