@@ -89,13 +89,11 @@ QuickSort::partition( int* a , int e , int d )
   int p = a[e];
   int i = e-1; // na descrição esta x-1
   int j = d+1;
-  j--;
-  i++;
   while (true){
-    while (a[j]<=p){
+    while (a[j]>p){
         j--;
     }
-    while (a[i]>=p){
+    while (a[i]>p){
         i++;
     }
     if (i<j){
