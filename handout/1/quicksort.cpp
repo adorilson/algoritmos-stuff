@@ -25,7 +25,6 @@
 
 #include "quicksort.hpp"         // QuickSort
 
-
 /**
  * \fn void QuickSort::sort( int* a , int size )
  *
@@ -93,13 +92,14 @@ QuickSort::partition( int* a , int e , int d )
     while (a[j]>p){
         j--;
     }
-    while (a[i]>p){
+    while (a[i]<p){
         i++;
     }
     if (i<j){
         int aux = a[i];
         a[i] = a[j];
         a[j] = aux;
+        i++;
     }else{
         return j;
     }
