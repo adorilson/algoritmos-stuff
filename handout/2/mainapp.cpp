@@ -167,7 +167,7 @@ int main()
 
       for ( int j = 1 ; j < n ; j++ ) {
 	if ( a[ j ] < a[ j - 1 ] ) {
-	  cerr << "Sorting method is incorrect!" << endl ;
+	  cerr << "Your implementation of the merge sort algorithm is incorrect!" << endl;
 	  return EXIT_FAILURE ;
 	}
       }
@@ -201,7 +201,7 @@ int main()
 
       for ( int j = 1 ; j < n ; j++ ) {
 	if ( b[ j ] < b[ j - 1 ] ) {
-	  cerr << "Your implementation of the merge sort algorithm is incorrect!" 
+	  cerr << "Your implementation of the quick sort algorithm is incorrect!" 
 	       << endl ;
 	  return EXIT_FAILURE ;
 	}
