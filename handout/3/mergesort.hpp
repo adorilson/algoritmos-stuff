@@ -74,6 +74,18 @@ private:
   // -----------------------------------------------------------------
 
   /**
+  * \fn void MergeSort::mergesort( int* a , int e, int d )
+  *
+  * \brief Recursively  sorts a subarray  of a given array  of integers
+  * delimited by two given indices.
+  *
+  * \param a A pointer to an array of integers.
+  * \param e The  index of the first element of  the subarray.
+  * \param d The  index of the last element of the subarray.
+  */
+  void mergesort( int* a , int e, int d);
+
+  /**
    * \fn void merge( int* a , int* b , int e , int m , int d )
    *
    * \brief Merge  two sorted, consecutive subarrays of  a given array
@@ -84,14 +96,13 @@ private:
    * subarray.
    *
    * \param a A pointer to an array of integers.
-   * \param b A pointer to the auxiliary array.
-   * \param e The  index of the first element of  the left subarray of
+   * \param l The  index of the first element of  the left subarray of
    * a.
    * \param m The index of the last element of the left subarray of a.
-   * \param d The  index of the last element of  the right subarray of
+   * \param r The  index of the last element of  the right subarray of
    * a.
    */
-  void merge( int* a , int* b , int e , int m , int d ) ;
+  void merge( int* a , int l , int m , int r ) ;
 
 } ;
 

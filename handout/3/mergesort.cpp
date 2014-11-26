@@ -23,8 +23,12 @@
  *            THE AUTHOR.
  */
 
+#include <iostream>            // cout, cerr, endl
+
 #include "mergesort.hpp"         // MergeSort
 
+using std::cerr ;
+using std::endl ;
 
 /**
  * \fn void MergeSort::sort( int* a , int size )
@@ -49,12 +53,47 @@ MergeSort::sort( int* a , int size )
   // subarranjo direito.
   //
   // -----------------------------------------------------------------
+  
+  mergesort(a, 0, size-1);
+  return;
+}
 
+/**
+ * \fn void MergeSort::mergesort( int* a , int e, int d )
+ *
+ * \brief Recursively  sorts a subarray  of a given array  of integers
+ * delimited by two given indices.
+ *
+ * \param a A pointer to an array of integers.
+ * \param l The  index of the first element of  the subarray.
+ * \param r The  index of the last element of the subarray.
+ */
+void
+MergeSort::mergesort( int* a , int l, int r)
+{
+  // ESCREVA O CÓDIGO DO MERGE-SORT
+
+  // -----------------------------------------------------------------
+  //
+  // Esta implementação do mergesort() não deve ser otimizada; isto é,
+  // ela deve  corresponder à implementação do  pseudocódigo que vimos
+  // em sala de aula.
+  //
+  // -----------------------------------------------------------------
+ 
+  if (l<r){
+    int m = (l+r)/2;
+    mergesort(a, l, m);
+    mergesort(a, m+1, r);
+    merge(a, l, m, r);
+  }
+  
+  return;
 }
 
 
 /**
- * \fn void MergeSort::merge( int* a , int* b , int e , int m , int d )
+ * \fn void merge( int* a , int e , int m , int d )
  *
  * \brief  Merge two sorted,  consecutive subarrays  of a  given array
  * using an auxiliary array.  The result is a sorted subarray with the
@@ -63,14 +102,48 @@ MergeSort::sort( int* a , int size )
  * element occupies the last position of the right subarray.
  *
  * \param a A pointer to an array of integers.
- * \param b A pointer to the auxiliary array.
- * \param e The index of the first element of the left subarray of a.
+ * \param l The index of the first element of the left subarray of a.
  * \param m The index of the last element of the left subarray of a.
- * \param d The index of the last element of the right subarray of a.
+ * \param r The index of the last element of the right subarray of a.
  */
 void
-MergeSort::merge( int* a , int* b , int e , int m , int d )
+MergeSort::merge( int* a, int l, int m, int r )
 {
   // ESCREVA O CÓDIGO DO PROCEDIMENTO MERGE AQUI!
+  int temp_size = r-l+1;
+  int* b = new int[temp_size];
+  
+  int t = 0;
+  int sl = l;
+  int sr = m+1;
+  // fazendo a intercalação dos elementos das duas partes de a em b
+  while (sl<=m && sr <= r){
+    if (a[sl]<=a[sr]){
+        b[t] = a[sl];
+        sl++;
+    }else{
+        b[t] = a[sr];
+        sr++;
+    };
+    t++;
+  };
+  // copiando o restantes dos elementos da primeira parte de a para b
+  while (sl<=m){
+    b[t] = a[sl];
+    sl++;
+    t++;
+  }
+  //copiando o restantes dos elementos da segunda parte de a para b
+  while(sr<=r){
+    b[t] = a[sr];
+    sr++;
+    t++;
+  }
 
+  // copiando b para o subarray de a
+  for(int i=0; i<temp_size; i++){
+    a[l+i] = b[i];
+  }
+  
+  return ;
 }
