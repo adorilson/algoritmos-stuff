@@ -70,23 +70,34 @@ MergeSort::mergesort( int* a , int l, int r)
   // subarranjo direito.
   //
   // -----------------------------------------------------------------
- 
-  if (l<r){
-    int m = (l+r)/2;
-    mergesort(a, l, m);
-    mergesort(a, m+1, r);
-    // otimização
-    if (a[m]>a[m+1]){
-      merge(a, l, m, r);
-    }
+  
+  if (l>=r){
+    return;
   }
   
+  int m = (l+r)/2;
+  mergesort(a, l, m);
+  mergesort(a, m+1, r);
+  if (a[m]>a[m+1]){ // otimização 1: só chama merge se a[m]>a[m+1]
+    // otimização 2: adição de array auxiliar na chamada a merge
+    int tmp_size = r-l+1;
+    int* b = new int[tmp_size];
+    merge(a, b, l, m, r); // <- o array ordenado está em b
+    
+    // colocando o conteudo de b de volta em a
+    for (int i=0; i<tmp_size; i++){
+      a[l+i] = b[i];
+    }
+    
+    delete b;
+  }
+
   return;
 }
 
 
 /**
- * \fn void merge( int* a , int e , int m , int d )
+ * \fn void merge( int* a , int* b , int e , int m , int d )
  *
  * \brief  Merge two sorted,  consecutive subarrays  of a  given array
  * using an auxiliary array.  The result is a sorted subarray with the
@@ -95,17 +106,15 @@ MergeSort::mergesort( int* a , int l, int r)
  * element occupies the last position of the right subarray.
  *
  * \param a A pointer to an array of integers.
+ * \param b A pointer to an auxiliary array
  * \param l The index of the first element of the left subarray of a.
  * \param m The index of the last element of the left subarray of a.
  * \param r The index of the last element of the right subarray of a.
  */
 void
-MergeSort::merge( int* a, int l, int m, int r )
+MergeSort::merge( int* a, int* b , int l, int m, int r )
 {
   // ESCREVA O CÓDIGO DO PROCEDIMENTO MERGE AQUI!
-  int temp_size = r-l+1;
-  int* b = new int[temp_size];
-  
   int t = 0;
   int sl = l;
   int sr = m+1;
@@ -133,11 +142,5 @@ MergeSort::merge( int* a, int l, int m, int r )
     t++;
   }
 
-  // copiando b para o subarray de a
-  for(int i=0; i<temp_size; i++){
-    a[l+i] = b[i];
-  }
-  
-  delete b;
   return ;
 }
