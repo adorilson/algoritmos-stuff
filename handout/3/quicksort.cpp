@@ -85,7 +85,7 @@ QuickSort::partition( int* a , int e , int d )
 {
   // ESCREVA O CÓDIGO DO PARTITION AQUI!
 
-  int i = e - 1 ;
+  int i = e-1;
   int x = a[ d ] ;
   for ( int j = e ; j < d ; j++ ) {
     if ( a[ j ] <= x ) {

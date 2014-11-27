@@ -138,5 +138,6 @@ MergeSort::merge( int* a, int l, int m, int r )
     a[l+i] = b[i];
   }
   
+  delete b;
   return ;
 }

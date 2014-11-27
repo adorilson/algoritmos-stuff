@@ -84,10 +84,9 @@ QuickSort::partition( int* a , int e , int d )
   // A linha abaixo deve ser retirada
 
   //return 0 ;
-  
   int p = a[e];
-  int i = e-1; // na descrição esta x-1
-  int j = d+1;
+  int i = e; // na descrição esta x-1
+  int j = d;
   while (true){
     while (a[j]>p){
         j--;

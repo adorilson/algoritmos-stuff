@@ -129,6 +129,7 @@ MergeSort::merge( int* a, int l, int m, int r )
   for(int i=0; i<temp_size; i++){
     a[l+i] = b[i];
   }
-  
+
+  delete b;
   return ;
 }

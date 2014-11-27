@@ -104,8 +104,8 @@ QuickSort::partition( int* a , int e , int d )
   // -----------------------------------------------------------------
 
   int p = a[e]; // não conta aqui pq conta abaixo
-  int i = e-1; // na descrição do projeto esta x-1
-  int j = d+1;
+  int i = e; // na descrição do projeto esta x-1
+  int j = d;
   while (true){
     while (a[j]>p){
         increment_the_number_of_key_comparisons(1);
