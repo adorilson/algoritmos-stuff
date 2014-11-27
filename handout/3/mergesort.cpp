@@ -41,19 +41,6 @@ using std::endl ;
 void
 MergeSort::sort( int* a , int size )
 {
-  // ESCREVA O CÓDIGO DO MERGESORT BOTTOM-UP AQUI!
-
-  // -----------------------------------------------------------------
-  //
-  // Esta implementação do mergesort() deve conter duas otimizações. A
-  // primeira  dispensa a  cópia de  elementos entre  o arranjo  a ser
-  // ordenado e o  arranjo auxiliar. A segunda dispensa  a execução do
-  // procedimento  "merge"  quando todos  os  elementos do  subarranjo
-  // esquerdo  forem  menores  ou   iguais  ao  primeito  elemento  do
-  // subarranjo direito.
-  //
-  // -----------------------------------------------------------------
-  
   mergesort(a, 0, size-1);
   return;
 }
@@ -71,13 +58,16 @@ MergeSort::sort( int* a , int size )
 void
 MergeSort::mergesort( int* a , int l, int r)
 {
-  // ESCREVA O CÓDIGO DO MERGE-SORT
+  // ESCREVA O CÓDIGO DO MERGESORT
 
   // -----------------------------------------------------------------
   //
-  // Esta implementação do mergesort() não deve ser otimizada; isto é,
-  // ela deve  corresponder à implementação do  pseudocódigo que vimos
-  // em sala de aula.
+  // Esta implementação do mergesort() deve conter duas otimizações. A
+  // primeira  dispensa a  cópia de  elementos entre  o arranjo  a ser
+  // ordenado e o  arranjo auxiliar. A segunda dispensa  a execução do
+  // procedimento  "merge"  quando todos  os  elementos do  subarranjo
+  // esquerdo  forem  menores  ou   iguais  ao  primeito  elemento  do
+  // subarranjo direito.
   //
   // -----------------------------------------------------------------
  
@@ -85,7 +75,10 @@ MergeSort::mergesort( int* a , int l, int r)
     int m = (l+r)/2;
     mergesort(a, l, m);
     mergesort(a, m+1, r);
-    merge(a, l, m, r);
+    // otimização
+    if (a[m]>a[m+1]){
+      merge(a, l, m, r);
+    }
   }
   
   return;
