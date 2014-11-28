@@ -42,24 +42,29 @@ QuickSort::sort( int* a , int size )
 
 
 /**
- * \fn void QuickSort::quicksort( int* a , int e , int d )
+ * \fn void QuickSort::quicksort( int* a , int l , int r )
  *
  * \brief Recursively  sorts a subarray  of a given array  of integers
  * delimited by two given indices.
  *
  * \param a A pointer to an array of integers.
- * \param e The  index of the first element of  the subarray.
- * \param d The  index of the last element of the subarray.
+ * \param l The  index of the first element of  the subarray.
+ * \param r The  index of the last element of the subarray.
  */
 void
-QuickSort::quicksort( int* a , int e , int d )
+QuickSort::quicksort( int* a , int l , int r )
 {
-
+  // ESCREVA O CÓDIGO DO QUICK-SORT AQUI!
+  if (l<r){
+    int m = partition(a, l, r);
+    quicksort(a, l, m);
+    quicksort(a, m+1, r);
+  }
 }
 
 
 /**
- * \fn int QuickSort::partition( int* a , int e , int d )
+ * \fn int QuickSort::partition( int* a , int l , int r )
  *
  * \brief Partitions a subarray of  a given array around an element of
  * the subarray, called pivot, such  that all subarray elements on the
@@ -67,15 +72,36 @@ QuickSort::quicksort( int* a , int e , int d )
  * elements on the right of the pivot are greater than or equal to it.
  *
  * \param a A pointer to an array of integers.
- * \param e The  index of the first element of the subarray.
- * \param d The  index of the last element of  the subarray.
+ * \param l The  index of the first element of the subarray.
+ * \param r The  index of the last element of  the subarray.
  *
  * \return The index of the pivot.
  */
 int
-QuickSort::partition( int* a , int e , int d )
+QuickSort::partition( int* a , int l , int r )
 {
-  // A LINHA ABAIXO DEVERIA SER REMOVIDA:
+  // ESCREVA O CÓDIGO DO PARTITION AQUI!
 
-  return 0 ;
+  // A linha abaixo deve ser retirada
+
+  //return 0 ;
+  int p = a[l];
+  int i = l; // na descrição esta x-1
+  int j = r;
+  while (true){
+    while (a[j]>p){
+        j--;
+    }
+    while (a[i]<p){
+        i++;
+    }
+    if (i<j){
+        int aux = a[i];
+        a[i] = a[j];
+        a[j] = aux;
+        i++;
+    }else{
+        return j;
+    }
+  }
 }
