@@ -87,12 +87,21 @@ MergeSort::mergesort(
     // otimização 2: adição de array auxiliar na chamada a merge
     int tmp_size = r-l+1;
     int* b = new int[tmp_size];
-    merge(a, b, l, m, r); // <- o array ordenado está em b
     
-    // colocando o conteudo de b de volta em a
-    for (int i=0; i<tmp_size; i++){
-      a[l+i] = b[i];
+    // otimização 3: o merge só será chamado se o soma do arrays for superior a M
+    int M = 110;
+    if (r-l+1>M){
+      merge(a, b, l, m, r); // <- o array ordenado está em b
+    }else{
+      insertionsort(a, b, l, r);
+      
+      // colocando o conteudo de b de volta em a
+      for (int i=l; i<(r+1); i++){
+        a[i] = b[i];
+      }
     }
+    
+    
     
     delete b;
   }
