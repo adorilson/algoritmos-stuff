@@ -102,11 +102,16 @@ int main( int argc, char* argv[] )
   cout << std::scientific << std::setprecision( 16 ) ;
 
   /*
+   * Set up the execution params
+   */
+  int times_sorting = 100;
+
+
+  /*
    * Run the method for 100 permutations of an arrays of size n.
    */
-  cerr << "Executing the sorting method on 100 arrays of size "
-       << n
-       << " each..."
+  cerr << "Executing the sorting method on " << n
+       << "distinctly-sized arrays (" << times_sorting << ") times for each)..."
        << endl ;
 
   cerr << "Allocating memory for an array of size "
@@ -137,13 +142,13 @@ int main( int argc, char* argv[] )
    * distinct permutation of the array.
    */
 
-  cerr << "Shuffling and sorting the array 100 times..."
-       << endl ;
+    cerr << "Shuffling and sorting the array " << times_sorting
+         << " times..." << endl ;
 
   double istime = 0 ;
   double mstime = 0 ;
 
-  for ( int j = 0 ; j < 100 ; j++ ) {
+  for ( int j = 0 ; j < times_sorting ; j++ ) {
     /*
      * Shuffle the array (again). In principle, any permutation of the
      * array is equally likely to be produced by the method shuffle().
@@ -208,15 +213,18 @@ int main( int argc, char* argv[] )
      */
     for ( int j = 1 ; j < n ; j++ ) {
       if ( b[ j ] < b[ j - 1 ] ) {
-	cerr << "Your implementation of the merge sort algorithm is incorrect!" << endl ;
-	return EXIT_FAILURE ;
+	      cerr << "Your implementation of the merge sort algorithm is incorrect!"
+	           << endl ;
+        return EXIT_FAILURE ;
       }
     }
-  }
 
-  cerr << "Done sorting..."
-       << endl ;
+
+  cerr << "Done sorting for array with " << n << " elements "
+        << "the " << j+1 << "th time"
+        << endl ;
   
+  }
   /*
    * Write the average execution time of each method.
    */
