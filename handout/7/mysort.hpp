@@ -46,68 +46,8 @@ public:
    *
    * \brief Default constructor.
    */
-  MySort() : 
-    _ncomps( 0 ) ,
-    _nacces( 0 )
+  MySort()  
   {
-  }
-
-
-  /**
-   * \fn unsigned get_the_number_of_key_comparisons() const
-   *
-   * \brief Returns  of the number  of key comparisons carried  out by
-   * the last execution of the sorting method.
-   *
-   * \return The  number of  key comparisons carried  out by  the last
-   * execution of the sorting method.
-   */
-  unsigned get_the_number_of_key_comparisons() const
-  {
-    return _ncomps ;
-  }
-
-
-  /**
-   * \fn unsigned get_the_number_of_array_accesses() const
-   *
-   * \brief Returns of the number of array accesses carried out by the
-   * last execution of the sorting method.
-   *
-   * \return  The number  of array  accesses carried  out by  the last
-   * execution of the sorting method.
-   */
-  unsigned get_the_number_of_array_accesses() const
-  {
-    return _nacces ;
-  }
-
-
-  /**
-   * \fn void increment_the_number_of_key_comparisons( unsigned n )
-   *
-   * \brief Increments  the number of  key comparisons carried  out by
-   * the last execution of the sorting method.
-   *
-   * \param n The factor to be added to the number of key comparisons.
-   */
-  void increment_the_number_of_key_comparisons( unsigned n )
-  {
-    _ncomps = _ncomps + int( n ) ;
-  }
-
-
-  /**
-   * \fn void increment_the_number_of_array_accesses( unsigned n )
-   *
-   * \brief Increments the number of array accesses carried out by the
-   * last execution of the sorting method.
-   *
-   * \param n The factor to be added to the number of key comparisons.
-   */
-  void increment_the_number_of_array_accesses( unsigned n )
-  {
-    _nacces = _nacces + int( n ) ;
   }
 
 
@@ -120,19 +60,6 @@ public:
    * \param size The number of elements in the array.
    */
   virtual void sort( int* a , int size ) = 0 ;
-
-
-protected:
-
-
-  // -----------------------------------------------------------------
-  //
-  // Protected data
-  //
-  // -----------------------------------------------------------------
-
-  unsigned _ncomps ;   ///< number of key comparisons of the sorting method.
-  unsigned _nacces ;   ///< number of array accesses of the sorting method.
 
 } ;
 

@@ -26,7 +26,7 @@ LIBS=
 #
 # A variável OBJS indica os arquivos objetos
 #
-OBJS= mainapp.o permutation.o quicksort.o 
+OBJS= mainapp.o shuffler.o insertionsort.o mergesort.o
 
 #
 # Regra de compilação e ligação do executável
@@ -35,21 +35,27 @@ mainapp: $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o mainapp $(LIBS)
 
 #
-# Regra de compilação do arquivo objeto permutation.o
+# Regra de compilação do arquivo objeto shuffler.o
 # 
-permutation.o: permutation.hpp permutation.cpp
-	$(CC) $(CFLAGS) permutation.cpp -o permutation.o
+shuffler.o: shuffler.hpp shuffler.cpp randint.hpp
+	$(CC) $(CFLAGS) shuffler.cpp -o shuffler.o
 
 #
-# Regra de compilação do arquivo objeto quicksort.o
+# Regra de compilação do arquivo objeto insertionsort.o
 # 
-quicksort.o: mysort.hpp quicksort.hpp quicksort.cpp
-	$(CC) $(CFLAGS) quicksort.cpp -o quicksort.o
+insertionsort.o: mysort.hpp insertionsort.hpp insertionsort.cpp
+	$(CC) $(CFLAGS) insertionsort.cpp -o insertionsort.o
+
+#
+# Regra de compilação do arquivo objeto mergesort.o
+# 
+mergesort.o: mysort.hpp mergesort.hpp mergesort.cpp
+	$(CC) $(CFLAGS) mergesort.cpp -o mergesort.o
 
 #
 # Regra de compilação do arquivo objeto mainapp.o
 # 
-mainapp.o: mainapp.cpp mysort.hpp permutation.hpp quicksort.hpp
+mainapp.o: mainapp.cpp mysort.hpp shuffler.hpp insertionsort.hpp
 	$(CC) $(CFLAGS) mainapp.cpp -o mainapp.o
 
 #

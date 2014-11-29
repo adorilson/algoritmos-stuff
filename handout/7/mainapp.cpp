@@ -1,17 +1,10 @@
 /** 
  * \file mainapp.cpp
  *  
- * \brief  This application creates  an array  consisting of  10 (ten)
- * integers, and then run the quicksort() algorithm on each one of the
- * 10! (factorial of 10) permutations  of the array. The number of key
- * comparisons of each execution  is recorded, and the "exact" average
- * number of comparisons  is calculated in the end  and written out to
- * the standard  output.  The main  purpose of this application  is to
- * give  you a  "real" value  for  the average  number of  comparisons
- * between keys,  carried out by quicksort()  on an array  of size 15.
- * This value can  be compared with the theoretical  estimation we saw
- * in  classroom  for the  average  execution  time  of the  quicksort
- * algorithm.
+ * \brief This application has  the purpose of comparing the execution
+ * time of two  sorting algorithms, insertion sort and  merge sort, on
+ * several inputs consisting of a permutation of 1,...,N, where N is a
+ * given integer.
  *
  * \author
  * Marcelo Ferreira Siqueira \n
@@ -31,186 +24,77 @@
  *            THE AUTHOR.
  */
 
-#include <cstdlib>             // EXIT_SUCCESS, EXIT_FAILURE
+#include <cstdlib>             // EXIT_SUCCESS, EXIT_FAILURE, atoi()
 #include <iostream>            // cout, cerr, endl
-#include <ios>                 // std::scientific, std::fixed
+#include <ios>                 // std::scientifc
 #include <iomanip>             // std::setprecision(), std::setw()
+#include <ctime>               // time, clock, CLOCKS_PER_SEC, clock_t 
+#include <cassert>             // assert()
 
 #include "mysort.hpp"          // MySort
-#include "quicksort.hpp"       // QuickSort
+#include "insertionsort.hpp"   // InsertionSort
+#include "mergesort.hpp"       // MergeSort
 
-#include "permutation.hpp"     // Permutation
+#include "shuffler.hpp"        // Shuffler
+
 
 /**
- * \fn int main()
+ * \fn int main( int argc , char* argv[] )
  *
- * \brief Executes  the quicksort() algorithm  on an array  10! times,
- * and   then   computes  the   average   execution   time  over   all
- * executions. The size  of the array is 10,  and each execution takes
- * in a distinct permutation of  the array. The average execution time
- * is written out to the standard output.
- *
- * \return The status of the function termination.
- *
- * -------------------------------------------------------------------
+ * \brief  Executes the insertion  sort algorithm  and the  merge sort
+ * algorithm  on several permutations  of an  array consisting  of the
+ * integers 1 thru N, where N is a given positive integer. You can use
+ * this  application to estimate  the average  execution time  of both
+ * merge sort  and insertion sort for  "small" arrays. The  idea is to
+ * estimate the largest value of N for which the average time taken by
+ * the insertion sort algorithm is smaller than the average time taken
+ * by the  merge sort algorithm to  sort some permutations  of a given
+ * array of  fixed size. Once you know  N, you can change  the code of
+ * the  merge sort  algorithm, so  that  it calls  the insertion  sort
+ * algorithm  whenever the  size  of  the subarray  gets  equal to  or
+ * smaller than N. 
  *
  * You should run this code with the following command-line:
  *
- * ./mainapp 
+ * ./mainapp N
  *
- * or
+ * \param argc The number of command line arguments.
+ * \param argv The command line arguments.
  *
- * ./mainapp > output filename
- *
- * -------------------------------------------------------------------
+ * \return The status of the function termination.
  */
-int main()
+int main( int argc, char* argv[] ) 
 {
-  /*
-   * Usage: ./mainapp [ > output filename ]
-   */
   using std::cout ;
   using std::cerr ;
   using std::endl ;
 
   /*
-   * Define some constants.
+   * Check the number of input parameters.
    */
-  const int   N    = 10 ;
-  const float NFAT = 3628800 ;
-
-  /*
-   * Instantiate the quicksort objects.
-   */
-  MySort* qs_sorter = new QuickSort() ;
-
-  /*
-   * Instantiate the array "permutation".
-   */
-  Permutation permutter ;
-
-  /*
-   * Run the method for arrays of size N.
-   */
-  cerr << "Executing the quick sort algorithm on an array of size "
-       << N
-       << " "
-       << NFAT
-       << " times..."
-       << endl ;
-
-  cerr << endl ;
-
-  cerr << "This may take some time... Get a coffee or play a game!"
-       << endl ;
-
-  cerr << endl ;
-
-
-  cerr << "Declaring two arrays to store the numbers 1 to 10... "
-       << endl ;
-
-  /*
-   * Declare two arrays of 10 integers each.
-   */
-  int a[ N ] ;
-  int b[ N ] ;
-
-  cerr << "Filling in the array with integers from 1 to 10..."
-       << endl ;
-  
-  /*
-   * Fill out the array with the integers from 1 to 10.
-   */
-  for ( int i = 0 ; i < N ; i++ ) {
-    a[ i ] = i + 1 ;
+  if ( argc != 2 ) {
+    cerr << "Usage: ./mainapp N"
+         << endl ;
+    return EXIT_FAILURE ;
   }
 
-  cerr << endl << endl ;
-
-  /* 
-   * For  each permutation  of the  array,  sort the  array, and  then
-   * compute and  acummulate the  number of comparisons  between array
-   * elements.
-   */
-  unsigned int comps = 0 ;
-  unsigned int count = 0 ;
-
-  do {
-
-    cerr << "Considering the " 
-	 << count + 1
-         << "-th permutation of the array..."
-         << endl ;
-
-    cerr << "Backing up the array..." << endl ;
-
-    /*
-     * Copy the array "a" to the array "b".
-     */
-    for ( int i = 0 ; i < N ; i++ ) {
-      b[ i ] = a[ i ] ;
-    }
-
-    cerr << "Sorting the array using quicksort..." << endl ;
-      
-    /*
-     * Sort the  array in non-decreasing order and  compute the number
-     * of comparisons between the array keys carried out by quicksort.
-     */
-    qs_sorter->sort( a , N ) ;
- 
-    /*
-     * Check whether the sorting method correctly sorted the array.
-     */
-    for ( int j = 1 ; j < N ; j++ ) {
-      if ( a[ j ] < a[ j - 1 ] ) {
-	cerr << "Your implementation of the mergesort algorithm is incorrect!" << endl ;
-	return EXIT_FAILURE ;
-      }
-    }
-
-    cerr << "Done sorting..." << endl ;
-
-    cerr << "Accumulating the number of key comparisons..." << endl ;
-
-    /*
-     * Accumulate the number of key comparisons.
-     */
-    comps +=  qs_sorter->get_the_number_of_key_comparisons() ;
-
-    cerr << "Computing the next permutation..." << endl ;
-
-    /*
-     * Get the next permutation of the array "b".
-     */
-    permutter.permute( b , N ) ;
-
-    /*
-     * Copy the array "b" to the array "a".
-     */
-    for ( int i = 0 ; i < N ; i++ ) {
-      a[ i ] = b[ i ] ;
-    }
-
-    /*
-     * Increment the permutation counter.
-     */
-    ++count ;
-
-    cerr << endl << endl ;
-
-  } 
-  while ( count < NFAT ) ;
-
-  cerr << "Computing the average number of key comparisons..." << endl ;
-      
   /*
-   * Compute the average number of key comparisons.
+   * Get the size of the array to be sorted.
    */
-  double avgcomps = double( comps ) / double( NFAT ) ;
+  int n = atoi( argv[ 1 ] ) ;
 
-  cerr << "Writing out the average number of key comparisons..." << endl ;
+  assert( n > 0 ) ;
+
+  /*
+   * Instantiate the insertion sort and merge sort objects.
+   */
+  MySort* is_sorter = new InsertionSort() ;
+  MySort* ms_sorter = new MergeSort() ;
+
+  /*
+   * Instantiate the array "shuffler".
+   */
+  Shuffler shuffler ;
 
   /*
    * Set up the format for displaying the output numbers.
@@ -218,23 +102,154 @@ int main()
   cout << std::scientific << std::setprecision( 16 ) ;
 
   /*
-   * Write out the average number of key comparisons.
+   * Run the method for 100 permutations of an arrays of size n.
    */
-  cout << "The average number of key comparisons is: "
-       << std::setw( 24 )
-       << avgcomps 
-       << endl ; 
+  cerr << "Executing the sorting method on 100 arrays of size "
+       << n
+       << " each..."
+       << endl ;
 
-  cerr << "Releasing memory..." << endl ;
+  cerr << "Allocating memory for an array of size "
+       << n
+       << "..."
+       << endl ;
 
   /*
-   * Release the memory allocated for the sorting method objects.
+   * Allocate memory for two arrays of n integers each.
    */
-  if ( qs_sorter != 0 ) {
-    delete qs_sorter ;
+  int* a = new int[ n ] ;
+  int* b = new int[ n ] ;
+
+  cerr << "Filling in the array with integers from 1 to "
+       << n
+       << "..."
+       << endl ;
+
+  /*
+   * Fill out the array with the integers from 1 to n.
+   */
+  for ( int i = 0 ; i < n ; i++ ) {
+    a[ i ] = i + 1 ;
   }
 
-  cerr << "Done!" << endl ;
+  /*
+   * Execute the method  100 times, each of which  takes in a possibly
+   * distinct permutation of the array.
+   */
+
+  cerr << "Shuffling and sorting the array 100 times..."
+       << endl ;
+
+  double istime = 0 ;
+  double mstime = 0 ;
+
+  for ( int j = 0 ; j < 100 ; j++ ) {
+    /*
+     * Shuffle the array (again). In principle, any permutation of the
+     * array is equally likely to be produced by the method shuffle().
+     */
+    shuffler.shuffle( &a[ 0 ] , n ) ;
+
+    /*
+     * Make a copy of array "a".
+     */
+    for ( int i = 0 ; i < n ; i++ ) {
+      b[ i ] = a[ i ] ;
+    }
+
+    /*
+     * Sort the array in non-decreasing  order and record the time (in
+     * milliseconds) that  the insertion  sort algorithm took  to sort
+     * the array.
+     */
+    clock_t start , end ;
+      
+    start = clock() ;
+    is_sorter->sort( a , n ) ;
+    end = clock() ;
+
+    /*
+     * Compute the cpu time of the execution.
+     */
+    istime += double( end - start ) ;
+    
+    /*
+     * Check if the  sorting method correctly sorted the  array. If it
+     * did, then  write out  the size of  the array and  the execution
+     * time.   Otherwise, write  out an  error message  and  abort the
+     * execution.
+     */
+    for ( int j = 1 ; j < n ; j++ ) {
+      if ( a[ j ] < a[ j - 1 ] ) {
+	cerr << "Your implementation of the insertion sort algorithm is incorrect!" << endl ;
+	return EXIT_FAILURE ;
+      }
+    }
+
+    /*
+     * Sort the array in non-decreasing  order and record the time (in
+     * milliseconds) that  the merge sort  algorithm took to  sort the
+     * array.
+     */     
+    start = clock() ;
+    ms_sorter->sort( b , n ) ;
+    end = clock() ;
+
+    /*
+     * Compute the cpu time of the execution.
+     */
+    mstime += double( end - start ) ;
+    
+    /*
+     * Check if the  sorting method correctly sorted the  array. If it
+     * did, then  write out  the size of  the array and  the execution
+     * time.   Otherwise, write  out an  error message  and  abort the
+     * execution.
+     */
+    for ( int j = 1 ; j < n ; j++ ) {
+      if ( b[ j ] < b[ j - 1 ] ) {
+	cerr << "Your implementation of the merge sort algorithm is incorrect!" << endl ;
+	return EXIT_FAILURE ;
+      }
+    }
+  }
+
+  cerr << "Done sorting..."
+       << endl ;
+  
+  /*
+   * Write the average execution time of each method.
+   */
+  cout << "INSERTION SORT: "
+       << std::setw( 24 )
+       << istime / ( 100 * CLOCKS_PER_SEC )
+       << endl
+       << "    MERGE SORT: "
+       << std::setw( 24 )
+       << mstime / ( 100 * CLOCKS_PER_SEC )
+       << endl ; 
+
+  /*
+   * Release the memory allocated for the arrays.
+   */
+  if ( a != 0 ) {
+    delete a ;
+  }
+
+  if ( b != 0 ) {
+    delete b ;
+  }
+
+  /*
+   * Release the memory allocated for the sorting method object.
+   */
+  if ( is_sorter != 0 ) {
+    delete is_sorter ;
+  }
+
+  if ( ms_sorter != 0 ) {
+    delete ms_sorter ;
+  }
 
   cerr << endl << endl ;
 
