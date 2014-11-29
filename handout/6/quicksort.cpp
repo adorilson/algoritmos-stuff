@@ -64,7 +64,11 @@ void
 QuickSort::quicksort( int* a , int e , int d )
 {
   // ESCREVA O CÓDIGO DO QUICKSORT AQUI!
-
+  if (e<d){
+    int m = partition(a, e, d);
+    quicksort(a, e, m);
+    quicksort(a, m+1, d);
+  }
 }
 
 
@@ -85,8 +89,51 @@ QuickSort::quicksort( int* a , int e , int d )
 int
 QuickSort::partition( int* a , int e , int d )
 {
-  // ESCREVA O CÓDIGO DO PARTITION AQUI!
+  // ------------------------------------------------------------------
+  //
+  // ESCREVA O CÓDIGO DO PROCEDIMENTO PARTITION() AQUI!
+  //
+  // Você deverá inserir chamadas a
+  //
+  // increment_the_number_of_array_accesses()
+  //
+  // e a 
+  //
+  // increment_the_number_of_key_comparisons()
+  //
+  // para  contar o  número de  acessos a  elementos do  arranjo  e de
+  // comparações entre chaves.
+  //
+  // -----------------------------------------------------------------
 
-  // REMOVA A LINHA ABAIXO:
-  return 0 ;
+  int p = a[e]; // não conta aqui pq conta abaixo
+  int i = e; // na descrição do projeto esta x-1
+  int j = d;
+  while (true){
+    while (a[j]>p){
+        increment_the_number_of_key_comparisons(1);
+        increment_the_number_of_array_accesses(1);
+        j--;
+    }
+    increment_the_number_of_key_comparisons(1);
+    increment_the_number_of_array_accesses(1);
+    
+    while (a[i]<p){
+        increment_the_number_of_key_comparisons(1);
+        increment_the_number_of_array_accesses(1);
+        i++;
+    }
+    increment_the_number_of_key_comparisons(1);
+    increment_the_number_of_array_accesses(1);
+    
+    if (i<j){
+        int aux = a[i];
+        a[i] = a[j];
+        a[j] = aux;
+        i++;
+        increment_the_number_of_array_accesses(4);
+    }else{
+        return j;
+    }
+  }
 }
