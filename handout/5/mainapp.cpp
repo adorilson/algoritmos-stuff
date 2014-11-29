@@ -81,11 +81,19 @@ int main()
    * Set up the format for displaying the output numbers.
    */
   cout << std::scientific << std::setprecision( 16 ) ;
+  
+  /*
+   * Set up the execution params
+   */
+  int begin_power = 3;
+  int end_power = 20;
+  int times_sorting = 5;
 
   /*
-   * Run the method for arrays of size 2^i, where i = 3,...,20.
+   * Run the method for arrays of size 2^i
    */
-  cerr << "Executing the sorting method on 18 distinctly-sized arrays (100 times for each)..."
+  cerr << "Executing the sorting method on " << end_power - begin_power + 1
+        << " distinctly-sized arrays (" << times_sorting << ") times for each)..."
        << endl ;
 
   cerr << endl ;
@@ -95,16 +103,17 @@ int main()
 
   cerr << endl ;
 
-  int n = 8 ;
+  int n = 2;
+  n <<= begin_power-1;
 
-  for ( int i = 0 ; i < 18 ; i++ ) {
+  for ( int i = begin_power ; i <= end_power ; i++ ) {
     cerr << endl ;
     cerr << "-----------------------------------------------------" 
-	 << endl ;
+         << endl ;
     cerr << "Allocating memory for an array of size "
-         << n
+         << n << " (2^" << i << ")"
          << "..."
-	 << endl ;
+         << endl ;
 
     /*
      * Allocate memory for two arrays of n integers each.
@@ -125,7 +134,7 @@ int main()
     }
 
     /*
-     * Execute the method 100 times, each of which takes in a possibly
+     * Execute the method some times, each of which takes in a possibly
      * distinct permutation of  the array.  This is not  ideal, as the
      * number of permutations of  the arrays grows exponentially as we
      * double the size of the array.   However, if we try to be "fair"
@@ -136,13 +145,13 @@ int main()
      * ideal).
      */
 
-    cerr << "Shuffling and sorting the array 100 times..."
-	 << endl ;
+    cerr << "Shuffling and sorting the array " << times_sorting << " times..."
+         << endl ;
 
     double mstime = 0 ;
     double qstime = 0 ;
 
-    for ( int j = 0 ; j < 100 ; j++ ) {
+    for ( int j = 0 ; j < times_sorting ; j++ ) {
       /*
        * Shuffle the  array (again). In principle,  any permutation of
        * the  array is  equally likely  to be  produced by  the method
@@ -154,7 +163,7 @@ int main()
        * Make a copy of array "a".
        */
       for ( int i = 0 ; i < n ; i++ ) {
-	b[ i ] = a[ i ] ;
+        b[ i ] = a[ i ] ;
       }
 
       /*
@@ -180,10 +189,10 @@ int main()
        * execution.
        */
       for ( int j = 1 ; j < n ; j++ ) {
-	if ( a[ j ] < a[ j - 1 ] ) {
-	  cerr << "Your implementation of the mergesort algorithm is incorrect!" << endl ;
-	  return EXIT_FAILURE ;
-	}
+        if ( a[ j ] < a[ j - 1 ] ) {
+          cerr << "Your implementation of the mergesort algorithm is incorrect!" << endl ;
+          return EXIT_FAILURE ;
+        }
       }
 
       /*
@@ -207,15 +216,17 @@ int main()
        * execution.
        */
       for ( int j = 1 ; j < n ; j++ ) {
-	if ( b[ j ] < b[ j - 1 ] ) {
-	  cerr << "Your implementation of the quicksort algorithm is incorrect!" << endl ;
-	  return EXIT_FAILURE ;
-	}
+        if ( b[ j ] < b[ j - 1 ] ) {
+          cerr << "Your implementation of the quicksort algorithm is incorrect!" << endl ;
+          return EXIT_FAILURE ;
+        }
       }
+
+    cerr << "Done sorting for array with " << n << " elements "
+         << "the " << j+1 << "th time" 
+         << endl ;
     }
 
-    cerr << "Done sorting..."
-         << endl ;
       
     /*
      * Write out array size and the average execution size.

@@ -74,7 +74,7 @@ private:
   // -----------------------------------------------------------------
 
   /**
-   * \fn void mergesort( int* a , int* b , int e , int d )
+   * \fn void mergesort( int* a , int l , int r )
    *
    * \brief Recursively sorts a  subarray delimited by the indices "e"
    * and  "d" of  a given  array "a",  using the  top-down  merge sort
@@ -82,16 +82,16 @@ private:
    *
    * \param a A pointer to an array of integers.
    * \param b A pointer to the auxiliary array.
-   * \param e The  index of the first element of  the left subarray of
+   * \param l The  index of the first element of  the left subarray of
    * a.
-   * \param d The  index of the last element of  the right subarray of
+   * \param r The  index of the last element of  the right subarray of
    * a.
    */
-  void mergesort( int* a , int* b , int e , int d ) ;
+  void mergesort( int* a , int l , int r ) ;
 
 
   /**
-   * \fn void merge( int* a , int* b , int e , int m , int d )
+   * \fn void merge( int* a , int* b , int l , int m , int r )
    *
    * \brief Merge  two sorted, consecutive subarrays of  a given array
    * using an auxiliary  array.  The result is a  sorted subarray with
@@ -102,13 +102,13 @@ private:
    *
    * \param a A pointer to an array of integers.
    * \param b A pointer to the auxiliary array.
-   * \param e The  index of the first element of  the left subarray of
+   * \param l The  index of the first element of  the left subarray of
    * a.
    * \param m The index of the last element of the left subarray of a.
-   * \param d The  index of the last element of  the right subarray of
+   * \param r The  index of the last element of  the right subarray of
    * a.
    */
-  void merge( int* a , int* b , int e , int m , int d ) ;
+  void merge( int* a , int* b , int l , int m , int r ) ;
 
 
   /**

@@ -55,7 +55,13 @@ void
 QuickSort::quicksort( int* a , int e , int d )
 {
   // ESCREVA O CÓDIGO DO QUICKSORT-AUX AQUI!
+  if ( e < d ) {
+    int m = partition( a , e , d ) ;
+    quicksort( a , e , m - 1 ) ;
+    quicksort( a , m + 1 , d ) ; 
+  }
 
+  return ;
 }
 
 
@@ -77,7 +83,20 @@ int
 QuickSort::partition( int* a , int e , int d )
 {
   // ESCREVA O CÓDIGO DO PARTITION AQUI!
+  int i = e-1;
+  int x = a[ d ] ;
+  for ( int j = e ; j < d ; j++ ) {
+    if ( a[ j ] <= x ) {
+      ++i ;
+      int temp = a[ i ] ;
+      a[ i ] = a[ j ] ;
+      a[ j ] = temp ;
+    }
+  }
 
-  // REMOVA A LINHA ABAIXO:
-  return 0 ;
+  x = a[ i + 1 ] ;
+  a[ i + 1 ] = a[ d ] ;
+  a[ d ] = x ;
+  
+  return ( i + 1 ) ;
 }
