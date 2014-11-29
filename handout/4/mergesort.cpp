@@ -36,7 +36,45 @@
  */
 void MergeSort::sort(int* a ,	int size )
 {
-  mergesort(a, 0, size-1);
+  // mergesort(a, size -1);
+  int d = 0;
+  int e = 0;
+  int m = 0;
+  int findFirstArray = 0;
+  int isOrdered = 0;  
+  while(isOrdered==0){
+    isOrdered=1;
+
+    while ((d < size - 1)) {
+      if (a[d] <= a[d + 1]) {
+          if(findFirstArray==0){
+            m++;
+          }
+          d++;
+      } else {
+          isOrdered = 0;
+          if(findFirstArray==0){
+            d++;
+            findFirstArray=1;
+          }
+          else{
+            merge(a, e, m, d);
+            findFirstArray=0;
+            d++;
+            e=d;
+            m=d;
+          }
+      }
+    }
+
+    if(findFirstArray==1){
+      merge(a, e, m, d);
+    }
+    d=0;
+    e=0;
+    m=0;
+    findFirstArray=0;
+  }
 
   return ;
 }
@@ -73,7 +111,7 @@ MergeSort::mergesort( int* a , int l, int r)
     mergesort(a, m+1, r);
     merge(a, l, m, r);
   }
-  
+   
   return;
 }
 
