@@ -52,3 +52,9 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+#tex files
+*.aux
+*.log
+
+# temp files
+*~
