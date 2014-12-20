@@ -3,6 +3,44 @@
 \section{Exhaustive Search}\label{sec:exhaustive_force}
 
 \subsection{Exercício 5}\label{sec:exer5}
+Consideremos o seguinte conjunto A=[1, 5, 2, 3, 4, 5]. Para resolver o problema da
+partição, podemos seguir os passos abaixo:
+\begin{enumerate}
+  \item Calcular a soma total dos elementos. No caso, resulta em 20.
+  \item Calcular a metade (no caso será 10). Esse será o valor da soma de cada
+  subconjunto.
+  \item Achar uma combinação de elementos cuja soma seja 10. Isso pode ser feito
+  com o algoritmo abaixo.
+\end{enumerate}
+
+\begin{algorithm}
+  \caption{Determina se existe uma combinação de elementos cuja soma seja a desejada}
+  \begin{algorithmic}
+    \REQUIRE $A=[a_{0}, a_{1}, \cdots, a_{n}]$,$usados=[a_{0}, a_{1}, \cdots, a_{n}]$,
+    inicio, fim e soma
+    \ENSURE True se existe uma combinação de elementos cuja soma seja igual a soma
+    \STATE Function TemSoma(A, usados, inicio, fim, soma)
+    \STATE $total \leftarrow 0$
+    \FOR{$i = 0$ to n}
+      \IF {$usados[i]$}
+        \STATE $total \leftarrow total + A[i]$
+      \ENDIF
+    \ENDFOR
+    \IF {$total = soma$}
+      \RETURN \TRUE
+    \ENDIF
+    \FOR {$i = inicio$ to $fim$}
+      \STATE $usados[i] \leftarrow 1$
+      \IF {TemSoma(A, usados, i+1, fim, soma)}
+        \RETURN \TRUE
+      \ENDIF
+      \STATE $usados[i] \leftarrow 0$
+    \ENDFOR
+    \RETURN \FALSE
+    \STATE EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
 
 \subsection{Exercício 6}\label{sec:exer6}
 
