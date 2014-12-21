@@ -68,6 +68,21 @@
 
 \subsection{Exercício 11}\label{sec:exer11}
 
+\begin{enumerate}[a)]
+  \item T(n) = 4T(n/2)+n, T(1)=1 \\
+  $f(n) \in \Theta(n) \therefore d=1$ \\
+  $a = 4, b = 2 \therefore a>b^{d}$ \\
+  $T(n) \in \Theta(n\log_{2}4) = \Theta(2n) \therefore \Theta(n)$
+  \item T(n) = 4T(n/2)+$n^{2}$, T(1)=1 \\
+  $f(n) \in \Theta(n^{2}) \therefore d=2$ \\
+  $a = 4, b = 2 \therefore a=b^{d}$ \\
+  $T(n) \in \Theta(n^{d} \log{}n) = \Theta(n^{2} \log{}n)$
+  \item T(n) = 4T(n/2)+$n^{3}$, T(1)=1 \\
+  $f(n) \in \Theta(n^{3}) \therefore d=3$ \\
+  $a = 4, b = 2 \therefore a<b^{d}$ \\
+  $T(n) \in \Theta(n^{d}) = \Theta(n^{3})$
+\end{enumerate}
+
 \subsection{Exercício 12}\label{sec:exer12}
 
 \subsection{Exercício 13}\label{sec:exer13}
