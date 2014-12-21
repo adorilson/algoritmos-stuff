@@ -85,6 +85,63 @@
 
 \subsection{Exercício 12}\label{sec:exer12}
 
+\begin{lstlisting}
+void merge( int* a , int* b , int e , int m , int d )
+{
+  int t, sl, sr;
+  t = 0;
+  sl = e;
+  sr = m + 1;
+  while(sl <= m && sr <= d){
+    if(a[sl]<=a[sr]){
+      b[t] = a[sl];
+      sl = sl + 1;
+    }
+    else{
+      b[t] = a[sr];
+      sr = sr + 1;
+    }
+    t = t + 1;
+  }
+  while(sl <= m){
+    b[t] = a[sl];
+    sl = sl + 1;
+    t = t + 1;
+  }
+  while(sr <= d){
+    b[t] = a[sr];
+    sr = sr + 1;
+    t = t + 1;
+  }
+  for (int i = 0 ; i < (d - e + 1); i++){
+    a[e + i] = b[i];
+  }
+  return ;
+}
+
+void mergesort( int* a , int size )
+{  
+  for(int i = 1; i < size ; i = i*2){
+      for(int e = 0 ; e < (size-i); e += i*2){
+          int m = e + i - 1;
+          int aux1 = e + i*2 -1;
+          int aux2 = size - 1;
+          int d;
+          if(aux1 <= aux2){
+             d = aux1;
+          }
+          else{
+            d = aux2;
+          }
+          int *b = new int[d-e+1];
+          merge(a, b, e, m, d);
+          delete b;
+      } 
+  }
+  return ;
+}
+\end{lstlisting}
+
 \subsection{Exercício 13}\label{sec:exer13}
 
 \subsection{Exercício 14}\label{sec:exer14}
