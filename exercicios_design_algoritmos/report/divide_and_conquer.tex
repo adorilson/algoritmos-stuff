@@ -3,6 +3,37 @@
 
 \subsection{Exercício 9}\label{sec:exer9}
 
+\begin{algorithm}
+  \caption{Retorna o indice do maior elementos de uma lista usando uma estratégia divisão e conquista}
+  \begin{algorithmic}
+    \REQUIRE $A=[a_{0}, a_{1}, \cdots, a_{n}]$, n
+    \ENSURE Retorna i onde A[i] é o maior elemento em A
+    \STATE Function FindMax(A, n)
+      \RETURN FindMaxAux(A, 0, n-1, 0)
+    \STATE EndFunction
+    
+    \STATE Function FindMaxAux(A, left, right, indexMax)
+      \IF {$left < right$}
+        \STATE $m \leftarrow $(left + right)/2
+        \STATE $x \leftarrow $FindMaxAux(A, left, m, indexMax)
+        \STATE $y \leftarrow $FindMaxAux(A, m+1, right, x)
+        \RETURN y
+      \ELSE
+        \IF {$A[left]>A[indexMax]$}
+          \RETURN left
+        \ELSE
+          \RETURN indexMax
+        \ENDIF
+      \ENDIF
+    \STATE EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{enumerate}[a)]
+  \item Será o menor índice
+  \item Brute-force é $\Theta(n)$, Divide-and-conquer é $\Theta(n\log{}n)$
+\end{enumerate}
+
 \subsection{Exercício 10}\label{sec:exer10}
 
 \subsection{Exercício 11}\label{sec:exer11}
