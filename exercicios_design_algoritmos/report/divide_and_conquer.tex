@@ -36,6 +36,36 @@
 
 \subsection{Exercício 10}\label{sec:exer10}
 
+\begin{algorithm}
+  \caption{Retorna o maior e o menor elementos de um conjunto}
+  \begin{algorithmic}
+    \REQUIRE $A=[a_{0}, a_{1}, \cdots, a_{n}]$, n
+    \ENSURE Retorna B onde B[0] e B[1] são, respectivamente, o menor e o maior elementos de A
+    \STATE Function FindSmallestAndLargest(A, n)
+      \STATE $B \leftarrow $int[IntMax, IntMin]
+      \STATE FindAux(A, 0, n-1, B)
+      \RETURN B
+    \STATE EndFunction
+    
+    \STATE Function FindAux(A, left, right, *B)
+      \IF {$left < right$}
+        \STATE $m \leftarrow $(left + right)/2
+        \STATE FindAux(A, left, m, B)
+        \STATE FindAux(A, m+1, right, B)
+      \ELSE
+        \IF {$A[left]<B[0]$}
+          \STATE $B[0] \leftarrow $A[left]
+        \ENDIF
+        \IF {$A[left]>B[1]$}
+          \STATE $B[1] \leftarrow $A[left]
+        \ENDIF
+      \ENDIF
+    \STATE EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+
+
 \subsection{Exercício 11}\label{sec:exer11}
 
 \subsection{Exercício 12}\label{sec:exer12}
