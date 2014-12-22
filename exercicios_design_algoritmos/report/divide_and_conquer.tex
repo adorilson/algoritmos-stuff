@@ -192,6 +192,50 @@ definitivos e i' $>$ j', portanto o QuickSort é um algoritmo instável.
 
 \lstinputlisting[language=Python]{../q14.py}
 
+
 \subsection{Exercício 15}\label{sec:exer15}
 
+\begin{algorithm}
+  \caption{Algoritmo LeafCounter}
+  \begin{algorithmic}
+    \STATE Function LeafCounter(T)
+      \IF {$T=\varnothing$}
+        \RETURN 0
+      \ENDIF
+      \IF {$T_{left}=\varnothing$ and $T_{right}=\varnothing$}
+        \RETURN 1
+      \ENDIF
+      \RETURN LeafCounter($T_{left}$) + LeafCounter($T_{right}$)
+    \STATE EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+
 \subsection{Exercício 16}\label{sec:exer16}
+
+\begin{algorithm}
+  \caption{OneDimensionClosestPair}
+  \begin{algorithmic}
+    \STATE Function OneDimensionClosestPair(Points, n)
+      \IF {$n \le 3$}
+        \RETURN $min(|D_1 - D_2|, |D_2 - D_3|)$
+      \ELSE
+        \STATE copiar os primeiros \big\lceil$n/2$\big\rceil pontos de Points para $P_l$
+        \STATE copiar os restantes \big\lfloor$n/2$\big\rfloor pontos de Points para $P_r$
+        \STATE $d_l \leftarrow OneDimensionClosestPair(P_l$, \big\lceil$n/2$\big\rceil)
+        \STATE $d_r \leftarrow OneDimensionClosestPair(P_r$, \big\lfloor$n/2$\big\rfloor)
+        \STATE $m_l \leftarrow P_l$[\big\lceil$n/2$\big\rceil-1] {//ultimo elemento de $P_l$}
+        \STATE $m_r \leftarrow P_r[0]$ {//primeiro elemento de $P_r$}
+        \STATE $m \leftarrow |m_l - m_r|$
+        \STATE $d \leftarrow min(d_l, d_r, m)$
+        \RETURN d
+      \ENDIF
+    \STATE EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+T(n) = 2T(n/2)+n, T(1)=1 \\
+  $f(n) \in \Theta(n) \therefore d=1$ \\
+  $a = 2, b = 2 \therefore a=b^{d}$ \\
+  $T(n) \in \Theta(n\log_{}n)$
+
