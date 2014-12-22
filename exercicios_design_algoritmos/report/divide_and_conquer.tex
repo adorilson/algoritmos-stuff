@@ -144,7 +144,53 @@ void mergesort( int* a , int size )
 
 \subsection{Exercício 13}\label{sec:exer13}
 
+Consideremos o conjunto A=[9a, 0a, 1a, 3, 0b, 1b, 9b] e o algoritmo QuickSort
+abaixo:
+
+\begin{algorithm}
+  \caption{Algoritmo QuickSort}
+  \begin{algorithmic}
+    \STATE Function QuickSort(A, left, right)
+      \STATE $S \leftarrow $partition(A, left, right)
+      \STATE QuickSort(A, left, S-1)
+      \STATE QuickSort(A, S+1, right)
+    \STATE EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+Teremos a seguinte pilha de chamadas: \\
+\begin{tabbing}
+QuickSort(A, 0, 7) \\
+  \hspace{1em}$S \leftarrow $partition(A, 0, 7) // Retorna 7 e A=[9b, 0a, 1a, 3, 0b, 1b, 9a] \\
+  \hspace{1em}QuickSort(A, 0, 6) // expandindo abaixo $\cdots $\\
+  \hspace{1em}QuickSort(A, 8, 7)
+\end{tabbing}
+
+\begin{tabbing}
+QuickSort(A, 0, 6) \\
+  \hspace{1em}$S \leftarrow $partition(A, 0, 6) // Retorna 6 e A=[1b, 0a, 1a, 3, 0b, 9b, 9a] \\
+  \hspace{1em}QuickSort(A, 0, 5) //expandindo abaixo $\cdots$ \\
+  \hspace{1em}QuickSort(A, 7, 6)
+\end{tabbing}
+
+\begin{tabbing}
+QuickSort(A, 0, 5) \\
+  \hspace{1em}$S \leftarrow $partition(A, 0, 5) // Retorna 2 e A=[0b, 0a, 1b, 3, 1a, 9b, 9a] \\
+  \hspace{1em}QuickSort(A, 0, 1)  \\
+  \hspace{1em}QuickSort(A, 3, 5)
+\end{tabbing}
+
+\begin{tabbing}
+\hspace{1em} \vdots
+\end{tabbing}
+
+Quando as chamadas QuickSort(A, 8, 7) e QuickSort(A, 7, 6) forem executadas nada sera feito, pois
+left $>$ right (caso base da função partition). Assim, 9a e 9b já estão em seus locais 
+definitivos e i' $>$ j', portanto o QuickSort é um algoritmo instável.
+
 \subsection{Exercício 14}\label{sec:exer14}
+
+\lstinputlisting[language=Python]{../q14.py}
 
 \subsection{Exercício 15}\label{sec:exer15}
 
