@@ -7,18 +7,33 @@ using namespace std;
 
 
 int main(){
-  BinaryTree<char*> tree = buildTree();
-  std::cout << tree.data << endl;
   
-  BinaryTree<char*> node_B = * tree.left;
-  std::cout << node_B.data << endl;
+  node *tree;	
+
+	cout << "BuildTree1: " << endl;
+	tree = buildTreeFigure1();
+	
+  cout << tree->data << endl;
+  node *B = tree->left;
+  cout << B->data << endl;
   
-  BinaryTree<char*> node_C = * node_B.left;
-  std::cout << node_C.data << endl;
+  printInOrder(tree);
   
-  BinaryTree<char*> node_I = * tree.right;
-  std::cout << node_I.data << endl;
+  // testando findNonKBalancedeNode e relacionados
+  cout << size(tree) << endl;
   
-  BinaryTree<char*> node_J = * node_I.left;
-  std::cout << node_J.data << endl;
+  char* result = NULL;
+  cout << isKBalancede(tree, 3) << endl;
+  
+  node *J = tree->right->left;
+  cout << J->data << endl;
+  cout << isKBalancede(J, 3) << endl;
+  
+  node *nonKBalancedeNode = findNonKBalancedeNode(tree, 3);
+  if (nonKBalancedeNode!=NULL){
+    result = nonKBalancedeNode->data;
+  }
+  
+  cout << "result do findNonKBalancedeNode: " << result << endl;
+  cout << endl;
 }
