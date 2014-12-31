@@ -13,6 +13,8 @@ struct node
 	char* data;
 	node *left;
 	node *right;
+	node *parent;
+	bool lock;
 };
 
 /* This funcion version uses three pointer variables */
@@ -44,16 +46,24 @@ node* buildTreeFigure1(){
   node_H->data = (char *) "H";
   
   root->left = node_B;
+  node_B->parent = root;
   
   node_B->left = node_C;
+  node_C->parent = node_B;
+  
   node_B->right = node_F;
+  node_F->parent = node_B;
   
   node_C->left = node_D;
+  node_D->parent = node_C;
   node_C->right = node_E;
+  node_E->parent = node_C;
   
   node_F->right = node_G;
+  node_G->parent = node_F;
   
   node_G->left = node_H;
+  node_H->parent = node_G;
   
   // Right side of root
   node *node_I = new node();
@@ -81,18 +91,27 @@ node* buildTreeFigure1(){
   node_P->data = (char *) "P";
   
   root->right = node_I;
+  node_I->parent = root;
   
   node_I->left = node_J;
+  node_J->parent = node_I;
+  
   node_I->right = node_O;
+  node_O->parent = node_I;
   
   node_J->right = node_K;
+  node_K->parent = node_J;
   
   node_K->left = node_L;
+  node_L->parent = node_K;
   node_K->right = node_N;
+  node_N->parent = node_K;
   
   node_L->right = node_M;
+  node_M->parent = node_L;
   
   node_O->right = node_P;
+  node_P->parent = node_O;
   
 	return root;
 }
@@ -109,6 +128,16 @@ void printInOrder(node *node){
 	}
 }
 
+void printParents(node *node){
+  if (node == NULL){
+    cout << endl;
+    return;
+  }
+  
+  cout << node->data << " ";
+  printParents(node->parent);
+  
+}
 
 int size(node *node){
 	if(node==NULL){
@@ -169,4 +198,84 @@ node* findNonKBalancedeNode(node *root, int k){
   
   cout << root->data << " é K-balanceado " << endl;
   return NULL;
+}
+
+/*
+2. Esta questão envolve a criação de uma pequena API para definir o estado de um
+nó qualquer de uma  ́arvore binária como sendo lock (bloqueado) ou unlock (desblo-
+queado). O estado de um nó de árvore binária não pode ser mudado para lock caso
+qualquer um de seus descendentes ou ascendentes já ́estejam em estado lock.
+Ao modificar o estado de um nó ́para lock nenhum outro nó ́deve ter seu estado
+alterado. Por exemplo, todas as folhas podem estar simultaneamente em estado
+lock. (Neste caso, nenhum outro nó ́ interno pode estar em estado lock.)
+
+Escreva os seguintes métodos para uma classe representando uma árvore binária:
+bool isLock(), bool lock(), e void unLock(). O método lock() deve retornar
+um valor booleano indicando se a chamada modificou o estado do nó ́ de unlock para
+lock. A complexidade temporal para os três métodos deve ser, respectivamente,
+O(1), O(h), e O(h), onde h corresponde a altura da  ́arvore binaria que contém o nó.
+Assuma que cada nó possui um ponteiro para seu antecessor imediato (o “pai”). A
+API deve ser utilizada em um programa com uma unica linha de execução (single
+thread ), de maneira que não é ́necessario utilizar programação concorrente.
+*/
+
+bool isLock(node *node){
+  if (node == NULL){
+    return false;
+  }
+  return node->lock;
+}
+
+bool isTreeLock(node *root){
+
+  if (root==NULL){
+    return false;
+  }
+
+  if (isLock(root)){
+    return true;
+  }
+
+  if (isTreeLock(root->left)){
+    return true;
+  }
+
+  if (isTreeLock(root->right)){
+    return true;
+  }
+
+  return false;
+}
+
+bool isParentsLock(node *node){
+  if (node == NULL){
+    return false;
+  }
+  
+  if (isLock(node->parent)){
+    return true;
+  }
+  if (isParentsLock(node->parent)){
+    return true;
+  }
+  return false;
+}
+
+bool lock(node *node){
+  if (isParentsLock(node)){
+    return false;
+  }
+  
+  if (isTreeLock(node->right)){
+    return false;
+  }
+  if (isTreeLock(node->left)){
+    return false;
+  }
+  node->lock = true;
+  return true;
+}
+
+bool unlock(node *node){
+  
 }

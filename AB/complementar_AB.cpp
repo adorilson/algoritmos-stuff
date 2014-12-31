@@ -36,4 +36,22 @@ int main(){
   
   cout << "result do findNonKBalancedeNode: " << result << endl;
   cout << endl;
+  
+  cout << endl << " === testando a API lock === " << endl;
+  
+  cout <<  "lock(J) = " << lock(J) << endl; // deve retorna true
+  cout <<  "lock(tree) = " <<lock(tree) << endl; // deve retornar false
+  cout <<  "lock(B) = " << lock(B) << endl; // deve retorna true
+  
+  cout << "printParents(J) = ";
+  printParents(J);
+  
+  cout << "isParentsLock(J) = " << isParentsLock(J) << endl; // deve retornar false
+  
+  node *L = J->right->left;
+  cout << "printParents(L) = ";
+  printParents(L); // deve ser L K J I A
+  cout << "isParentsLock(L) = " << isParentsLock(L) << endl; // deve retorna true
+  cout <<  "lock(L) = " << lock(L) << endl; // deve retorna false (J is lock)
+  
 }
