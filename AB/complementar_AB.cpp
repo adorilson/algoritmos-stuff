@@ -39,19 +39,44 @@ int main(){
   
   cout << endl << " === testando a API lock === " << endl;
   
-  cout <<  "lock(J) = " << lock(J) << endl; // deve retorna true
-  cout <<  "lock(tree) = " <<lock(tree) << endl; // deve retornar false
-  cout <<  "lock(B) = " << lock(B) << endl; // deve retorna true
+  node *F  = B->right;
+  cout << "lockParents(F)" << endl;
+  cout << "antes: " << B->countRightLock << " " << tree->countLeftLock << " // deve ser 0 0" << endl;
+  updateLockParents(F);
+  cout << "depois: " << B->countRightLock << " " << tree->countLeftLock << " // deve ser 1 1" << endl;
+  
+  cout << "unLockParents(F)" << endl;
+  updateUnlockParents(F);
+  cout << "antes: " << B->countRightLock << " " << tree->countLeftLock << " // deve ser 0 0" << endl;
+  
+  cout << "isLock(J) = " << isLock(J) << "// deve ser 0 "  << endl;
+  cout <<  "lock(J) = " << lock(J) << " // deve retorna true " << endl;
+  cout << "isLock(J) = " << isLock(J) << "// deve ser 1 "  << endl;
+  cout << J->parent->countLeftLock << " " << tree->countRightLock << " // deve ser 1 1" << endl;
+  cout <<  "lock(tree) = " << lock(tree) << "// deve retornar false" << endl;
+  cout <<  "lock(B) = " << lock(B) << " // deve retorna true" << endl;
   
   cout << "printParents(J) = ";
   printParents(J);
   
-  cout << "isParentsLock(J) = " << isParentsLock(J) << endl; // deve retornar false
+  cout << "isParentsLock(J) = " << hasParentsLock(J) <<  " deve retornar false" << endl;
   
   node *L = J->right->left;
-  cout << "printParents(L) = ";
-  printParents(L); // deve ser L K J I A
-  cout << "isParentsLock(L) = " << isParentsLock(L) << endl; // deve retorna true
-  cout <<  "lock(L) = " << lock(L) << endl; // deve retorna false (J is lock)
+  cout << "printParents(L) = "; printParents(L);
+  cout << "// deve ser L K J I A" << endl;
+  cout << "isParentsLock(L) = " << hasParentsLock(L)  << " // deve retorna true" << endl;
+  cout <<  "lock(L) = " << lock(L) << " // deve retorna false (J is lock)" << endl;
   
+  
+  node *P = tree->right->right->right;
+  cout << "lock(" << P->data << ")" << endl;
+  cout <<  "lock(P) = " << lock(P) << " // deve retorna 1" << endl;
+  cout << P->parent->countRightLock << " " << P->parent->parent->countRightLock
+        << " " << tree->countRightLock << " // deve retornar 1 1 2 " << endl; 
+  
+  
+  cout << "unLock(J)" << endl;
+  unLock(J);
+  cout << "isLock(J) = " << isLock(J) << "// deve ser 0 "  << endl;
+  cout << J->parent->countLeftLock << " " << tree->countRightLock << " // deve ser 0 1" << endl; 
 }

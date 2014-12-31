@@ -15,6 +15,9 @@ struct node
 	node *right;
 	node *parent;
 	bool lock;
+	
+	int countLeftLock;
+	int countRightLock;
 };
 
 /* This funcion version uses three pointer variables */
@@ -226,28 +229,7 @@ bool isLock(node *node){
   return node->lock;
 }
 
-bool isTreeLock(node *root){
-
-  if (root==NULL){
-    return false;
-  }
-
-  if (isLock(root)){
-    return true;
-  }
-
-  if (isTreeLock(root->left)){
-    return true;
-  }
-
-  if (isTreeLock(root->right)){
-    return true;
-  }
-
-  return false;
-}
-
-bool isParentsLock(node *node){
+bool hasParentsLock(node *node){
   if (node == NULL){
     return false;
   }
@@ -255,27 +237,61 @@ bool isParentsLock(node *node){
   if (isLock(node->parent)){
     return true;
   }
-  if (isParentsLock(node->parent)){
+  if (hasParentsLock(node->parent)){
     return true;
   }
   return false;
 }
 
+void updateLockParents(node *node){
+  if (node->parent==NULL){
+    return;
+  }
+  
+  if (node==node->parent->left){
+    node->parent->countLeftLock++;
+  }else{
+    node->parent->countRightLock++;
+  }
+  
+  updateLockParents(node->parent);
+}
+
+void updateUnlockParents(node *node){
+  if (node->parent==NULL){
+    return;
+  }
+  
+  if (node==node->parent->left){
+    node->parent->countLeftLock--;
+  }else{
+    node->parent->countRightLock--;
+  }
+  
+  updateUnlockParents(node->parent);
+}
+
 bool lock(node *node){
-  if (isParentsLock(node)){
+  
+  // checking if has locked children in O(1)
+  if (node->countLeftLock || node->countRightLock){
     return false;
   }
   
-  if (isTreeLock(node->right)){
+  // checking if has locked parents in O(h)
+  if (hasParentsLock(node)){
     return false;
   }
-  if (isTreeLock(node->left)){
-    return false;
-  }
+  
+  // locking parents in O(h)
+  updateLockParents(node);
+  
   node->lock = true;
   return true;
 }
 
-bool unlock(node *node){
+void unLock(node *node){
+  updateUnlockParents(node);
   
+  node->lock = false;
 }
