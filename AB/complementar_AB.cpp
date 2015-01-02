@@ -79,4 +79,10 @@ int main(){
   unLock(J);
   cout << "isLock(J) = " << isLock(J) << "// deve ser 0 "  << endl;
   cout << J->parent->countLeftLock << " " << tree->countRightLock << " // deve ser 0 1" << endl; 
+  
+  
+  cout << endl << " === testando reconstrudor de árvores === " << endl;
+  string inorder = "FBAEHCDIG";
+  string preorder = "HBFEACDGI";
+  rebuild(J, inorder, preorder);
 }

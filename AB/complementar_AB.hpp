@@ -5,6 +5,8 @@
 
 #include <cmath> 
 
+#include <string>
+
 using namespace std;
 
 
@@ -294,4 +296,39 @@ void unLock(node *node){
   updateUnlockParents(node);
   
   node->lock = false;
+}
+
+
+
+
+/*
+Muitas arvores binárias distintas produzem a mesma sequência de chaves se percor-
+ridas em ordem, em pré-ordem ou em pós-ordem. Contudo, se assumirmos que uma
+árvore binária T possui chaves únicas, podemos encontrar uma árvore T única dado
+o resultado de um percorrimento em ordem sobre T e o resultado de qualquer um dos
+outros dois percorrimentos acima mencionados. Por exemplo, a  ́arvore binária única
+T cuja sequência obtida via percorrimento em ordem  ́é F, B, A, E, H, C, D, I, G
+e cuja sequência obtida via percorrimento pré-ordem é H, B, F, E, A, C, D, G, I
+é apresentada abaixo.
+         H
+       /   \
+      B     C
+     / \     \
+    F   E     D
+       /       \
+      A         G
+               /
+              I
+*/
+
+void rebuild(node *node, string inorder, string preorder){
+  string data_root = preorder.substr(0, 1);
+  //node->data = data_root;
+  
+  int pos_root = inorder.find(data_root);
+  string tree_left = inorder.substr(0, pos_root);
+  string tree_right = inorder.substr(pos_root+1, inorder.length()-1);
+  
+  cout << data_root << endl;
+  cout << tree_left << " " << tree_right << endl;
 }
