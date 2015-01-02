@@ -84,11 +84,16 @@ int main(){
   cout << endl << " === testando reconstrudor de árvores === " << endl;
   string inorder = "FBAEHCDIG";
   string preorder = "HBFEACDGI";
+  string posorder = "FAEBIGDCH";
   node *X = rebuild(inorder, preorder);
   cout << "== printInOrder(X) == " << endl;
   printInOrder(X);
   cout << endl;
   cout << "printTreeInBarMode(X, --);" << endl;
   printTreeInBarMode2(X, "--");
+  cout << endl;
+
+  node *Y = rebuild_with_in_and_pos(inorder, posorder);
+  printInOrder(Y);
   cout << endl;
 }

@@ -371,3 +371,46 @@ node* rebuild(string inorder, string preorder){
 
   return root;
 }
+
+node* rebuild_with_in_and_pos(string inorder, string posorder){
+
+  int len = posorder.length();
+  string data_root = posorder.substr(len-1, 1);
+  node *root = new node();
+
+  root->data = new char[data_root.size() + 1];
+  std::copy(data_root.begin(), data_root.end(), root->data);
+  root->data[data_root.size()] = '\0';
+
+  // it is a leaf
+  if(inorder==posorder){
+    if (len==2){ // OR a root and a left child
+      string data_child = posorder.substr(0, 1);
+      node *child = new node();
+
+      child->data = new char[data_child.size() + 1];
+      std::copy(data_child.begin(), data_child.end(), child->data);
+      child->data[data_child.size()] = '\0';
+
+      root->left = child;
+    }
+
+    return root;
+  }
+
+  int pos_root = inorder.find(data_root);
+  string tree_left = inorder.substr(0, pos_root);
+  string tree_right = inorder.substr(pos_root+1, inorder.length());
+  // call this function to rebuild the left and rigth trees recursily
+  string left = posorder.substr(0, tree_left.length());
+  if(left.length()!=0){
+    root->left = rebuild_with_in_and_pos(tree_left, left);
+  }
+
+  string right = posorder.substr(tree_left.length(), posorder.length()-1-tree_left.length());
+  if(right.length()!=0){
+    root->right = rebuild_with_in_and_pos(tree_right, right);
+  }
+
+  return root;
+}
