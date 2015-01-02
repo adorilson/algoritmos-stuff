@@ -299,10 +299,30 @@ void unLock(node *node){
 }
 
 
+void printTreeInBarMode2(node *node, string valor){
+	if(node->right!=NULL){
+		printTreeInBarMode2(node->right, valor+"--");
+	}
+	else{
+		cout << "--" << valor << "x" <<endl;
+	}
+	if(node!=NULL){
+		cout << valor << node->data << endl;
+	}
+	else{
+		return;
+	}
+	if(node->left!=NULL){
+		printTreeInBarMode2(node->left, valor+"--");
+	}
+	else{
+		cout << "--" << valor << "x" <<endl;
+	}
+}
 
 
 /*
-Muitas arvores binárias distintas produzem a mesma sequência de chaves se percor-
+3. Muitas arvores binárias distintas produzem a mesma sequência de chaves se percor-
 ridas em ordem, em pré-ordem ou em pós-ordem. Contudo, se assumirmos que uma
 árvore binária T possui chaves únicas, podemos encontrar uma árvore T única dado
 o resultado de um percorrimento em ordem sobre T e o resultado de qualquer um dos
@@ -321,14 +341,33 @@ e cuja sequência obtida via percorrimento pré-ordem é H, B, F, E, A, C, D, G,
               I
 */
 
-void rebuild(node *node, string inorder, string preorder){
+node* rebuild(string inorder, string preorder){
+
   string data_root = preorder.substr(0, 1);
-  //node->data = data_root;
-  
+  node *root = new node();
+  root->data = new char[data_root.size() + 1];
+  std::copy(data_root.begin(), data_root.end(), root->data);
+  root->data[data_root.size()] = '\0';
+
+  // it is a leaf
+  if(inorder==preorder){
+    return root;
+  }
+
   int pos_root = inorder.find(data_root);
   string tree_left = inorder.substr(0, pos_root);
   string tree_right = inorder.substr(pos_root+1, inorder.length()-1);
-  
-  cout << data_root << endl;
-  cout << tree_left << " " << tree_right << endl;
+
+  // call this function to rebuild the left and rigth trees recursily
+  string left = preorder.substr(1, tree_left.length());
+  if(left.length()!=0){
+    root->left = rebuild(tree_left, left);
+  }
+
+  string right = preorder.substr(tree_left.length()+1, preorder.length()-1);
+  if(right.length()!=0){
+    root->right = rebuild(tree_right, right);
+  }
+
+  return root;
 }
