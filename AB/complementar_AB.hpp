@@ -414,3 +414,73 @@ node* rebuild_with_in_and_pos(string inorder, string posorder){
 
   return root;
 }
+
+
+/*
+4. Em algumas aplicações que utilizam  ́arvores binárias, apenas seu nó folha contém
+informações válida para a aplicação. Por exemplo, em um torneio eliminatório de
+futebol em fase “mata-mata” organizado como  ́arvore binária, podemos ligar as
+folhas para obter a lista de participantes.
+Escreva um algoritmo ou função em C/C++ que produz uma lista encadeada a partir
+das folhas de uma  ́árvore binária passada como parámetro através de um ponteiro
+para sua raiz. As folhas devem aparecer na ordem esquerda-para-direita. Por exemplo,
+se esta função fosse aplicada a  ́arvore de Figura 1 ela deveria produzir uma lista com
+a seguinte sequência de nós D, E, H, M, N, P . (Entenda a folha mais
+a esquerda (ou direita) como sendo a folha que aparece em primeiro (ou último) lugar
+em um percorrimento em ordem.)
+*/
+
+void printLeaf(node *node){
+	if(node==NULL){
+		return;
+	}
+	else
+	{
+		printLeaf(node->left);
+		if (node->left==NULL && node->right==NULL){
+		  cout << node->data;
+		}
+		printLeaf(node->right);
+	}
+}
+
+class LNode{
+public:
+    node* data;
+    LNode* next;
+    LNode(node* node): data(node), next(NULL){
+    }
+    LNode():data(NULL), next(NULL){
+    }
+    ~LNode(){
+        delete next; next = NULL;
+    }
+    void append(node* node){
+        LNode* p = this;
+        for (; p->next != NULL; p=p->next)
+          ;
+
+        p->next = new LNode( node );
+    }
+};
+
+void getLeafAux(LNode *list, node *tree)
+{
+  
+  if(tree==NULL){
+    return;
+  }
+
+  getLeafAux(list, tree->left);
+  if (tree->left==NULL && tree->right==NULL){
+    list->append(tree);
+  }
+  getLeafAux(list, tree->right);
+}
+
+LNode* getLeaf(node *tree){
+  LNode* list = new LNode();
+
+  getLeafAux(list, tree);
+  return list;
+}

@@ -96,4 +96,12 @@ int main(){
   node *Y = rebuild_with_in_and_pos(inorder, posorder);
   printInOrder(Y);
   cout << endl;
+  
+  cout << endl << "getLeaf(tree)" << endl;
+  LNode* list = getLeaf(tree);
+  for (; list->next != NULL; list=list->next){
+    cout << list->next->data->data << " ";
+  }
+
+  cout << endl;
 }
