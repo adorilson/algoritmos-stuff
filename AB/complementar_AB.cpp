@@ -104,4 +104,26 @@ int main(){
   }
 
   cout << endl;
+
+  cout << endl << "=== ACMB === " << endl;
+  node *M = J->right->left->right;
+  node *N = J->right->right;
+  cout << M->data << " " << N->data << endl;
+
+  cout << "path to " << M->data << endl;
+  vector<char*> path = getPath(tree, M);
+
+  for (int i = 0; i < path.size(); i++){
+    cout << path[i] << " ";
+  }
+  cout << endl;
+
+  cout << "path to " << N->data << endl;
+  path = getPath(tree, N);
+
+  for (int i = 0; i < path.size(); i++){
+    cout << path[i] << " ";
+  }
+  cout << endl;
+  cout << "ACMB(M, N) = " << findLCA(tree, M, N) << endl;
 }

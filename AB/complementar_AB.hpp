@@ -6,7 +6,7 @@
 #include <cmath> 
 
 #include <string>
-
+#include <vector>
 using namespace std;
 
 
@@ -483,4 +483,71 @@ LNode* getLeaf(node *tree){
 
   getLeafAux(list, tree);
   return list;
+}
+
+
+/*
+5. Quaisquer dois nós em uma árvore binária possui um ancestral em comum, a raiz.
+O ancestral comum mais baixo (ACMB) de qualquer dois nós em uma árvore binária
+é definido como sendo o nó mais distante da raiz que é ancestral dos dois nós. Por
+exemplo, o ACMB de M e N na árvore da Figura 1 é K.
+Encontrar o ACMB tem importante aplicações. Por exemplo, em uma árvore intervalar,
+o ACMB de dois nós ́é crucial para computar o menor intervalo que contém o
+intervalo armazenado em tais nós.
+
+Escreva um algoritmo ou função em C/C++ para calcular o ACMB de dois nós a e
+b em uma árvore binária T cujos nós não possuem ponteiro para o “pai”.
+*/
+
+// Finds the path from root node to given root of the tree, Stores the
+// path in a vector path[], returns true if path exists otherwise false
+bool findPath(node *root, vector<char*> &path, node *child){
+    // base case
+    if (root == NULL) return false;
+
+    // Store this node in path vector. The node will be removed if
+    // not in path from root to k
+    path.push_back(root->data);
+
+    // See if the k is same as root's key
+    if (root == child)
+        return true;
+
+    // Check if k is found in left or right sub-tree
+    if ( (root->left && findPath(root->left, path, child)) ||
+         (root->right && findPath(root->right, path, child)) )
+        return true;
+
+    // If not present in subtree rooted with root, remove root from
+    // path[] and return false
+    path.pop_back();
+    return false;
+}
+
+vector<char*> getPath(node *root, node *child){
+  vector<char*> path;
+
+  findPath(root, path, child);
+
+  return path;
+}
+
+// Returns LCA if node n1, n2 are present in the given binary tree,
+// otherwise return null
+char* findLCA(node *root, node *n1, node *n2)
+{
+    // to store paths to n1 and n2 from the root
+    vector<char*> path1, path2;
+
+    // Find paths from root to n1 and root to n1. If either n1 or n2
+    // is not present, return -1
+    if ( !findPath(root, path1, n1) || !findPath(root, path2, n2))
+          return "0";
+
+    /* Compare the paths to get the first different value */
+    int i;
+    for (i = 0; i < path1.size() && i < path2.size() ; i++)
+        if (path1[i] != path2[i])
+            break;
+    return path1[i-1];
 }
