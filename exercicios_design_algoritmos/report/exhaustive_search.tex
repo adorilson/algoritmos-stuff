@@ -59,10 +59,64 @@ visitados com 2. Repetir enquanto houver vertices não-visitados.
 
 \subsection{Exercício 8}\label{sec:exer8}
 \begin{enumerate}[a)]
-  \item inserir grafo
+  \item
+  
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=0.5cm,
+	thick,main node/.style={circle,fill=white!20,draw,minimum size=0.15cm,inner sep=0pt]}]
+	
+	\node[main node] (1) [fill=black] {};
+	\node[main node] (2) [right of=1] {};
+	\node[main node] (3) [above of=2] {};
+	
+	\node[main node] (4) [left of=3] {};
+	\node[main node] (6) [above of=4] {};
+	\node[main node] (8) [above of=6] {};
+	\node[main node] (10) [above of=8] {};
+	\node[main node] (12) [above of=10] {};
+	
+	\node[main node] (5) [right of=3] {};
+	\node[main node] (7) [above of=5] {};
+	\node[main node] (9) [above of=7] {};
+	\node[main node] (11) [above of=9] {};
+	\node[main node] (13) [above of=11] {};
+	
+	\node[main node] (14) [right of=8] {};
+	\node[main node] (15) [right of=12] {};
+	
+	\node[main node] (16) [right of=13, fill=black]{};
+	
+	\path[-]
+	(1) edge node {} (2)
+	(2) edge node {} (3)
+	(3) edge node {} (4)
+	(3) edge node {} (5)
+	
+	(4) edge node {} (6)
+	(6) edge node {} (8)
+	(8) edge node {} (10)
+	(10) edge node {} (12)
+	
+	(5) edge node {} (7)
+	(7) edge node {} (9)
+	(9) edge node {} (11)
+	(11) edge node {} (13)
+	
+	(8) edge node {} (14)
+	(9) edge node {} (14)
+	
+	(14) edge node {} (15)
+	(12) edge node {} (15)
+	(13) edge node {} (15)
+	
+	(13) edge node {} (16)
+	;
+	
+	
+	\end{tikzpicture}
   \item DFS. Porque nesse tipo de travessia caminha-se até encontrar um beco sem saída
   ou a saída do labirinto. Quando encontra-se um beco sem saída volta-se até o ponto
   imediatamente anterior que tenha opção de caminho não percorrido. No BFS, visita-se
   primeiro todos os vertices de um nível, para só então passar para o próximo nível.
   Portanto, a travessia de labirinto em DFS é mais eficiente.
 \end{enumerate}
+
