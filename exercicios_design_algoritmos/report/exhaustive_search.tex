@@ -1,5 +1,6 @@
 %!TEX root = report.tex
 
+\newpage
 \section{Exhaustive Search}\label{sec:exhaustive_force}
 
 \subsection{Exercício 5}\label{sec:exer5}
@@ -41,7 +42,6 @@ partição, podemos seguir os passos abaixo:
   \end{algorithmic}
 \end{algorithm}
 
-
 \subsection{Exercício 6}\label{sec:exer6}
 \begin{enumerate}[a)]
   \item Gerar todas as permutações possíveis do conjunto a ser ordenado e verificar
@@ -61,13 +61,16 @@ visitados com 2. Repetir enquanto houver vertices não-visitados.
 \begin{enumerate}[a)]
   \item
   
-\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=0.5cm,
-	thick,main node/.style={circle,fill=white!20,draw,minimum size=0.15cm,inner sep=0pt]}]
+\begin{tikzpicture}[->, >=stealth', shorten >=1pt, auto, node distance=0.5cm, thick,
+    main node/.style={circle,fill=white, draw,minimum size=0.15cm,inner sep=0pt]},
+	dead node/.style={fill=red},
+	initial node/.style={fill=black},
+	]
 	
-	\node[main node] (1) [fill=black] {};
+	\node[main node, initial node] (1) [] {};
 	\node[main node] (2) [right of=1] {};
 	\node[main node] (3) [above of=2] {};
-	
+		
 	\node[main node] (4) [left of=3] {};
 	\node[main node] (6) [above of=4] {};
 	\node[main node] (8) [above of=6] {};
@@ -75,6 +78,7 @@ visitados com 2. Repetir enquanto houver vertices não-visitados.
 	\node[main node] (12) [above of=10] {};
 	
 	\node[main node] (5) [right of=3] {};
+	
 	\node[main node] (7) [above of=5] {};
 	\node[main node] (9) [above of=7] {};
 	\node[main node] (11) [above of=9] {};
@@ -84,6 +88,17 @@ visitados com 2. Repetir enquanto houver vertices não-visitados.
 	\node[main node] (15) [right of=12] {};
 	
 	\node[main node] (16) [right of=13, fill=black]{};
+	
+	%dead nodes
+	\node[main node, dead node] (17) [left of=4] {};
+	\node[main node, dead node] (18) [right of=5] {};
+    \node[main node, dead node] (19) [right of=2] {};
+    \node[main node, dead node] (20) [left of=10] {};
+    \node[main node, dead node] (21) [right of=11] {};
+    \node[main node, dead node] (22) [left of=12] {};
+    \node[main node, dead node] (23) [left of=6] {};
+    \node[main node, dead node] (24) [right of=7] {};
+
 	
 	\path[-]
 	(1) edge node {} (2)
@@ -97,6 +112,7 @@ visitados com 2. Repetir enquanto houver vertices não-visitados.
 	(10) edge node {} (12)
 	
 	(5) edge node {} (7)
+
 	(7) edge node {} (9)
 	(9) edge node {} (11)
 	(11) edge node {} (13)
@@ -109,6 +125,16 @@ visitados com 2. Repetir enquanto houver vertices não-visitados.
 	(13) edge node {} (15)
 	
 	(13) edge node {} (16)
+	
+	%edges to dead nodes
+	(2) edge node {} (19)
+	(4) edge node {} (17)
+	(5) edge node {} (18)
+	(6) edge node {} (23)
+	(7) edge node {} (24)
+	(10) edge node {} (20)
+	(11) edge node {} (21)
+	(12) edge node {} (22)
 	;
 	
 	
