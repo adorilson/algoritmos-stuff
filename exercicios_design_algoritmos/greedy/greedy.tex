@@ -151,8 +151,25 @@ código & 1 & 010   & 011   & 000     & 001   \\
 
 \subsection{Exercício 29}\label{sec:exer29}
 
-$\log _2 \left( n \right)$
+Do conhecimento que temos de números binários, podemos ser levados a acreditar que
+seja $\log _2 \left( n \right)$, no entanto, isso só é verdade pra arvores balanceadas.
+O algoritmo de Huffman podem gerar arvores não-balanceadas, como a apresentada abaixo.
+
+Assim, o tamanho máxima de uma {\it codeword} é n-1.
 
 \subsection{Exercício 30}\label{sec:exer30}
 
-\subsection{Exercício 31}\label{sec:exer31}
+O sistema pode ser modelado como um grafo direcionado, em que os vertices correspondem
+as tarefas e um arco partindo do vertice {\it u} para o vertice {\it v}, indica
+que a tarefa {\it u} deve ser finalizada antes da tarefa {\it v} ser iniciada. O
+sistema é inviável ser houver um ciclo no grafo.
+
+Podemos checar se há ciclos no executando uma DFS. Se não houver ciclos, a DFS
+gera uma ordem topologica do grafo. Uma vez que os os servidores são ilimitados,
+$T_{i}$ pode ser completado $\tau_i$ "tempos" após todas as tarefas das quais
+dependem terem sido finalizadas. Portanto, podemos calcular a tarefa que pode ser
+mais rapidamente finalizada processando-as de acordo com a ordem topológica,
+iniciando pela tarefa que não depende de nenhuma outra. Se não existir tais tarefas,
+o sistemas é inviável.
+
+Referência: Elements of Programming Interviews - Adnan Aziz, Tsung-Hsien Lee \& Amit Prakash
