@@ -81,6 +81,43 @@ Para grafos sem pesos nos vertices, outro(s) algoritmo(s) deve(m) ser aplicado(s
 
 \subsection{Exercício 26}\label{sec:exer26}
 
+Consideremos o grafo abaixo:
+
+\begin{tikzpicture}[->, >=stealth', shorten >=1pt, auto, node distance=3cm, thick,
+    main node/.style={circle,fill=white, draw,minimum size=0.15cm,inner sep=0pt]},
+	]
+	
+	\node[main node] (1) [] {A};
+	\node[main node] (2) [right of=1] {B};
+	\node[main node] (3) [above left of=2] {C};
+	\node[main node] (4) [below left of=2] {D};
+	
+	\path[every node/.style={font=\sffamily\small}]
+	(1) edge node {1} (2)
+	(2) edge [bend right] node[right] {1} (3)
+	(1) edge [bend left] node[left] {0} (3)
+	(1) edge [bend right] node[left] {99} (4)
+	(4) edge [bend right] node[right] {-300} (2)	
+	;
+\end{tikzpicture}
+
+Assumindo que os vertices são direcionados conforme as setas e deseja-se obter o menor
+caminho para nó C, o algoritmo de Dijkstra irá trabalhar da seguinte forma:
+
+\begin{enumerate}
+  \item Primeiro, define d(A) para zero e as demais distâncias para o infinito
+  \item Partindo do A em direção aos demais nós, definimos d(B)=1, d(C)=0 e d(D)=99 
+  \item Não há vertices ligando o nó C a nenhum outro
+  \item Partindo de B, também não há mudança (já que 2 é maior que zero)
+  \item Finalmente, partindo de D, d(B) será alterado para -201
+\end{enumerate}
+
+Ao final da execução do algoritmo, contudo, d(C) ainda é 0, mesmo que o menor caminho
+para C seja -200. Isso ocorre porque se eu tenho um número (d(D)) maior que outro (d(C))
+e adiciono a ele um outro número positivo (o esperado pelo algoritmo), necessariamente
+esse valor ainda será maior. Portanto, o menor caminho para C, necessariamente não será
+passando por D, já que um outro menor, até aquele momento já foi identificado.
+
 \subsection{Exercício 27}\label{sec:exer27}
 
 \subsection{Exercício 28}\label{sec:exer28}
