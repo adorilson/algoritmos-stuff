@@ -3,6 +3,74 @@
 
 \subsection{Exercício 23}\label{sec:exer23}
 
+\begin{tikzpicture}[thick, framed]
+  \draw[|-|] (0, 1.5) -- (6, 1.5)
+    node[pos=0.5,above]{$\textsc{A}$};
+  \draw[|-|] (1, 1) -- (4, 1)
+        node[pos=0.5,above]{$\textsc{B}$};
+  \draw[|-|] (3, 0.5) -- (5, 0.5)
+        node[pos=0.5,above]{$\textsc{C}$};
+    \draw[|-|] (3, 0) -- (8, 0)
+        node[midway,above]{$\textsc{D}$};
+    \draw[|-|] (4, -0.5) -- (7, -0.5)
+        node[pos=0.5,above]{$\textsc{E}$};
+    \draw[|-|] (5, -1.0) -- (9, -1.0)
+        node[pos=0.5,above]{$\textsc{F}$};
+    \draw[|-|] (6, -1.5) -- (10, -1.5)
+        node[pos=0.5,above]{$\textsc{G}$};
+    \draw[|-|] (8, -2.0) -- (11, -2.0)
+        node[pos=0.5,above]{$\textsc{H}$};
+    \draw (5.5,2) node[above,xshift=0.7cm]{$ \textsc{Intervalos}$};%
+    % Axis
+    \draw (0, -2.5) -- (12, -2.5)
+      node[pos=0.5,below]{$\textsc{Tempo}$};
+    % Note that the snaked line is drawn to 11.1 to force
+    % TikZ to draw the final tick.
+    \draw[snake=ticks,segment length=1cm] (0, -2.5) -- (12, -2.5);
+\end{tikzpicture}
+
+Considerando os intervalos apresentados acima, caso utilizemos uma estratégia
+earliest starts first (a) seriam selecionados os intervalos A e G. Na estratégia
+shortest duration first (b) os intervalos C e H seriam escolhidos. Já para a 
+estratégia earliest finishes first (c) os intervalos seriam B, E e H. Portanto,
+a estratégia earliest finishes first é a estratégia ótima para esse tipo de problema.
+Intuitiva, podemos perceber que isso ocorre por que quanto antes o slot de tempo
+for liberado para o próximo intervalo, melhor.
+
+As estratégias a) e b) poderiam 
+ainda ser piores, caso o intervalo A ocupasse todo o tempo, assim seria incompatível
+como todos os demais, mas por ser o primeiro a começar, seria selecionado. Ou ainda
+se tivéssemos um intervalo pequeno mas que fizesse intercecção como outros dois, que
+não possuíssem intercecção entre si. Dessa forma, esse intervalo pequeno seria
+selecionado, e somente ele, em detrimentos dos outros dois.
+
+O algoritmo usando a estratégia earliest finishes first pode ser vista abaixo.
+
+\begin{algorithm}
+  \caption{Determina o maior conjunto possível de intervalos sem que haja sobreposição
+  de tempos entres eles}
+  \begin{algorithmic}
+    \REQUIRE $n, S=[s_{0}, s_{1}, \cdots, s_{n}]$, $F=[f_{0}, f_{1}, \cdots, f_{n}]$
+    \STATE Ordenar os intervalos por ordem crescente do tempo de finalização
+    \STATE $A \leftarrow \emptyset$
+    \FOR{$j = 0$ to n}
+      \IF {intervalo j é compatível com A}
+            \STATE $A \leftarrow A \cup \lbrace j \rbrace$
+      \ENDIF
+    \ENDFOR
+    \RETURN A
+  \end{algorithmic}
+\end{algorithm}
+
+\newpage
+Esse algoritmo pode ser implementado em $\theta(n log n)$, desde que se respeitem alguns
+critérios:
+\begin{enumerate}
+  \item Manter uma referencia para j*, que foi o ultimo intervalor adicionado a A
+  \item O intervalo j é compatível com A se $s_{j} \ge f_{j*}$
+  \item A ordenação dos intervalores ser feita em um $\theta(n log n)$
+\end{enumerate}
+
 \subsection{Exercício 24}\label{sec:exer24}
 
 \subsection{Exercício 25}\label{sec:exer25}
