@@ -155,7 +155,30 @@ Do conhecimento que temos de números binários, podemos ser levados a acreditar
 seja $\log _2 \left( n \right)$, no entanto, isso só é verdade pra arvores balanceadas.
 O algoritmo de Huffman podem gerar arvores não-balanceadas, como a apresentada abaixo.
 
-Assim, o tamanho máxima de uma {\it codeword} é n-1.
+\begin{tikzpicture}[->, >=stealth', shorten >=1pt, auto, node distance=1cm, thick,
+    main node/.style={circle,fill=white, draw,minimum size=0.3cm,inner sep=0pt]},
+	]
+	
+	\node[main node] (1) [] {};
+	\node[main node] (2) [below right of=1] {A};
+	\node[main node] (3) [below left of=1] {};
+	\node[main node] (4) [below left of=2] {B};
+	\node[main node] (5) [below left of=3] {};
+	\node[main node] (6) [below left of=5] {C};
+	\node[main node] (7) [below right of=5] {D};
+	
+	\path[every node/.style={font=\sffamily\small}]
+	(1) edge node {1} (2)
+	(1) edge node[left] {0} (3)
+	(3) edge node[right] {1} (4)
+	(3) edge node[left] {1} (5)
+	(5) edge node[left] {0} (6)
+	(5) edge node[right] {0} (7)
+	;
+\end{tikzpicture}
+
+
+Assim, o tamanho máximo de uma {\it codeword} é n-1.
 
 \subsection{Exercício 30}\label{sec:exer30}
 
